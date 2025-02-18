@@ -13,12 +13,12 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/testcontainers/testcontainers-go"
-
 	"github.com/iotaledger/wasp/clients"
 	"github.com/iotaledger/wasp/clients/iota-go/iotago"
 	"github.com/iotaledger/wasp/clients/iota-go/iotasigner"
-	"github.com/iotaledger/wasp/packages/cryptolib"
+	testcommon "github.com/iotaledger/wasp/clients/iota-go/test_common"
+	"github.com/iotaledger/wasp/packages/testutil/testconfig"
+	"github.com/iotaledger/wasp/packages/testutil/testkey"
 )
 
 var (
@@ -32,10 +32,10 @@ type Ports struct {
 }
 
 type Config struct {
-	Host    string
-	Ports   Ports
-	Logger  testcontainers.Logging
-	TempDir string
+	Host         string
+	Ports        Ports
+	TempDir      string
+	IscPackageID iotago.PackageID
 }
 
 type Logger struct{}
@@ -53,7 +53,12 @@ type IotaNodeEndpoint interface {
 }
 
 func init() {
-	var seed [ed25519.SeedSize]byte = cryptolib.NewSeed()
+	var seed [ed25519.SeedSize]byte
+	if UseRandomPackageOwner() {
+		seed = testkey.NewTestSeed()
+	} else {
+		seed = [32]byte(testcommon.TestSeed)
+	}
 	ISCPackageOwner = iotasigner.NewSigner(seed[:], iotasigner.KeySchemeFlagDefault)
 }
 
@@ -68,6 +73,11 @@ func Instance() IotaNodeEndpoint {
 func IsLocalConfigured() bool {
 	testConfig := LoadConfig()
 	return testConfig.IsLocal
+}
+
+func UseRandomPackageOwner() bool {
+	const byDefault = false
+	return testconfig.Get("l1starter", "USE_RANDOM_PKG_OWNER", byDefault)
 }
 
 func TestMain(m *testing.M) {
