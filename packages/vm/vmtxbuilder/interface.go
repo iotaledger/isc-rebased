@@ -20,4 +20,7 @@ type TransactionBuilder interface {
 
 	// this will reset txb into nil
 	BuildTransactionEssence(stateMetadata []byte, topUpAmount uint64) iotago.ProgrammableTransaction
+
+	// return a clone of PTB object for viewing
+	ViewPTB() *iotago.ProgrammableTransactionBuilder
 }

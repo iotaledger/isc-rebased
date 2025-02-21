@@ -1,12 +1,15 @@
 package vmimpl
 
 import (
+	"fmt"
 	"math"
 	"math/big"
 	"os"
 	"runtime/debug"
 	"time"
 
+	"github.com/iotaledger/wasp/clients/iota-go/iotago"
+	"github.com/iotaledger/wasp/clients/iota-go/iotago/iotatest"
 	"github.com/iotaledger/wasp/packages/coin"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/isc"
@@ -16,6 +19,7 @@ import (
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/parameters"
 	"github.com/iotaledger/wasp/packages/util"
+	"github.com/iotaledger/wasp/packages/util/bcs"
 	"github.com/iotaledger/wasp/packages/util/panicutil"
 	"github.com/iotaledger/wasp/packages/vm"
 	"github.com/iotaledger/wasp/packages/vm/core/accounts"
@@ -477,11 +481,23 @@ func (vmctx *vmContext) loadChainConfig() {
 
 // checkTransactionSize panics with ErrMaxTransactionSizeExceeded if the estimated transaction size exceeds the limit
 func (vmctx *vmContext) checkTransactionSize() error {
-	// TODO the following requirements we need to check
-	// * The encoded bytes of ptb should be smaller than `max_tx_size_bytes`
-	// * max_size_written_objects
-	// * max_serialized_tx_effects_size_bytes
-	// * max_pure_argument_size
-	vmctx.task.Log.Info("TODO: checkTransactionSize")
+	const maxTxSizeBytes = 128 * 1024
+	const maxInputObjects = 2048
+	const maxProgrammableTxCommands = 1024
+	ptb := vmctx.txbuilder.ViewPTB()
+	if ptb.Inputs.Len() > maxInputObjects {
+		return fmt.Errorf("ptb input len: %d, exceed max_input_objects", ptb.Inputs.Len())
+	}
+	if len(ptb.Commands) > maxProgrammableTxCommands {
+		return fmt.Errorf("ptb input len: %d, exceed max_programmable_tx_commands", len(ptb.Commands))
+	}
+	pt := ptb.Finish()
+	tx := iotago.NewProgrammable(
+		iotatest.RandomAddress(), pt, []*iotago.ObjectRef{iotatest.RandomObjectRef()}, 0, 0,
+	)
+	b, _ := bcs.Marshal(&tx)
+	if len(b) > maxTxSizeBytes {
+		return fmt.Errorf("ptb serialized size: %d, exceed max_tx_size_bytes", maxTxSizeBytes)
+	}
 	return nil
 }
