@@ -145,3 +145,7 @@ func (txb *AnchorTransactionBuilder) BuildTransactionEssence(stateMetadata []byt
 	}
 	return ptb.Finish()
 }
+
+func (txb *AnchorTransactionBuilder) ViewPTB() *iotago.ProgrammableTransactionBuilder {
+	return txb.ptb.Clone()
+}
