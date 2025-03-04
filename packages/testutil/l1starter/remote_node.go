@@ -5,7 +5,9 @@ import (
 	"fmt"
 
 	"github.com/iotaledger/wasp/clients"
+	"github.com/iotaledger/wasp/clients/iota-go/iotaclient"
 	"github.com/iotaledger/wasp/clients/iota-go/iotago"
+	"github.com/iotaledger/wasp/clients/iota-go/iotajsonrpc"
 	"github.com/iotaledger/wasp/clients/iota-go/iotasigner"
 	"github.com/iotaledger/wasp/packages/cryptolib"
 )
@@ -51,9 +53,20 @@ func (in *RemoteIotaNode) IsLocal() bool {
 func (r *RemoteIotaNode) start(ctx context.Context) {
 	client := r.L1Client()
 
-	err := client.RequestFunds(ctx, *cryptolib.NewAddressFromIota(r.iscPackageOwner.Address()))
+	defaultCoinType := iotajsonrpc.IotaCoinType.String()
+	ownerGetCoins, err := client.GetBalance(ctx, iotaclient.GetBalanceRequest{
+		Owner:    r.iscPackageOwner.Address(),
+		CoinType: defaultCoinType,
+	})
 	if err != nil {
-		panic(fmt.Errorf("faucet request failed: %w for url: %s", err, r.faucetURL))
+		panic(fmt.Errorf("can't get package owner's balance: %s", err))
+	}
+
+	if ownerGetCoins.TotalBalance.Int64() < iotaclient.DefaultGasBudget*2 {
+		err = client.RequestFunds(ctx, *cryptolib.NewAddressFromIota(r.iscPackageOwner.Address()))
+		if err != nil {
+			panic(fmt.Errorf("faucet request failed: %w for url: %s", err, r.faucetURL))
+		}
 	}
 
 	r.iscPackageID, err = client.DeployISCContracts(ctx, r.iscPackageOwner)

@@ -17,7 +17,7 @@ import (
 )
 
 func TestWaspCLIExternalRotationGovAccessNodes(t *testing.T) {
-	t.Skip("Cluster tests currently disabled")
+	// t.Skip("Cluster tests currently disabled")
 
 	addAccessNode := func(w *WaspCLITest, pubKey string) {
 		out := w.MustRun("chain", "gov-change-access-nodes", "accept", pubKey, "--node=0")
@@ -27,7 +27,7 @@ func TestWaspCLIExternalRotationGovAccessNodes(t *testing.T) {
 	testWaspCLIExternalRotation(t, addAccessNode)
 }
 
-func TestWaspCLIExternalRotationPermitionlessAccessNodes(t *testing.T) {
+func TestWaspCLIExternalRotationPermissionlessAccessNodes(t *testing.T) {
 	t.Skip("Cluster tests currently disabled")
 
 	addAccessNode := func(w *WaspCLITest, pubKey string) {

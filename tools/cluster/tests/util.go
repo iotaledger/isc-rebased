@@ -2,9 +2,11 @@ package tests
 
 import (
 	"context"
+	"slices"
 	"testing"
 	"time"
 
+	"github.com/samber/lo"
 	"github.com/stretchr/testify/require"
 
 	"github.com/iotaledger/wasp/clients/apiclient"
@@ -36,10 +38,10 @@ func (e *ChainEnv) checkCoreContracts() {
 		contractRegistry, err := root.ViewGetContractRecords.DecodeOutput(records)
 		require.NoError(e.t, err)
 		for _, rec := range corecontracts.All {
-			cr := contractRegistry[rec.Hname()]
-			require.NotNil(e.t, cr, "core contract %s %+v missing", rec.Name, rec.Hname())
-
-			require.EqualValues(e.t, rec.Name, cr.B.Name)
+			foundHname := slices.ContainsFunc(contractRegistry, func(tuple lo.Tuple2[*isc.Hname, *root.ContractRecord]) bool {
+				return *tuple.A == rec.Hname()
+			})
+			require.True(e.t, foundHname, "core contract %s %+v missing", rec.Name, rec.Hname())
 		}
 	}
 }

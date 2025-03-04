@@ -115,7 +115,6 @@ func (c *ChainService) HasChain(chainID isc.ChainID) bool {
 		c.log.Infof("hasChain err:[%v]", err)
 		return false
 	}
-
 	return storedChainRec != nil
 }
 

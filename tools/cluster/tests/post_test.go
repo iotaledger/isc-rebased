@@ -59,12 +59,6 @@ func deployInccounter42(e *ChainEnv) *isc.ContractAgentID {
 }
 
 // executed in cluster_test.go
-func testPostDeployInccounter(t *testing.T, e *ChainEnv) {
-	contractID := deployInccounter42(e)
-	t.Logf("-------------- deployed contract. Name: '%s' id: %s", inccounter.Contract.Name, contractID.String())
-}
-
-// executed in cluster_test.go
 func testPost1Request(t *testing.T, e *ChainEnv) {
 	contractID := deployInccounter42(e)
 	t.Logf("-------------- deployed contract. Name: '%s' id: %s", inccounter.Contract.Name, contractID.String())

@@ -65,7 +65,6 @@ func (c *Client) StartNewChain(
 	argInitCoin = ptb.LastCommandResultArg()
 
 	ptb = PTBStartNewChain(ptb, req.PackageID, req.StateMetadata, argInitCoin, req.ChainOwnerAddress)
-
 	txnResponse, err := c.SignAndExecutePTB(
 		ctx,
 		req.Signer,
@@ -82,6 +81,7 @@ func (c *Client) StartNewChain(
 	if err != nil {
 		return nil, fmt.Errorf("failed to GetCreatedObjectInfo: %w", err)
 	}
+	time.Sleep(2 * time.Second)
 	return c.GetAnchorFromObjectID(ctx, anchorRef.ObjectID)
 }
 

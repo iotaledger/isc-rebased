@@ -49,8 +49,8 @@ func newWaspCLITest(t *testing.T, opt ...waspClusterOpts) *WaspCLITest {
 	w.MustRun("wallet-provider", "unsafe_inmemory_testing_seed")
 	w.MustRun("init")
 
-	w.MustRun("set", "l1.apiAddress", clu.Config.L1.APIURL())
-	w.MustRun("set", "l1.faucetAddress", clu.Config.L1.FaucetURL())
+	w.MustRun("set", "l1.apiAddress", "https://api.iota-rebased-alphanet.iota.cafe")
+	w.MustRun("set", "l1.faucetAddress", "https://faucet.iota-rebased-alphanet.iota.cafe/gas")
 	for _, node := range clu.Config.AllNodes() {
 		w.MustRun("wasp", "add", fmt.Sprintf("%d", node), clu.Config.APIHost(node))
 	}
