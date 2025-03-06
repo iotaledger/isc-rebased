@@ -115,13 +115,11 @@ func getAddress(out []string) string {
 }
 
 func TestWaspCLISendFunds(t *testing.T) {
-	t.Skip("Cluster tests currently disabled")
-
 	w := newWaspCLITest(t)
 
 	alternativeAddress := getAddress(w.MustRun("address", "--address-index=1"))
 
-	w.MustRun("send-funds", "-s", alternativeAddress, "base:1000000")
+	w.MustRun("send-funds", alternativeAddress, "base|1000000")
 	checkBalance(t, w.MustRun("balance", "--address-index=1"), 1000000)
 }
 

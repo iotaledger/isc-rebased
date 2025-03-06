@@ -4,13 +4,10 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"runtime/debug"
 	"strings"
 )
 
 func ChainNotFoundError() *HTTPError {
-	fmt.Println("===========!!")
-	debug.PrintStack()
 	return NewHTTPError(http.StatusNotFound, "Chain ID not found", nil)
 }
 

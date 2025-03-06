@@ -2,7 +2,7 @@ package isc
 
 import (
 	"encoding/json"
-	"fmt"
+	"strconv"
 )
 
 type RequestJSON struct {
@@ -26,7 +26,7 @@ func RequestToJSONObject(request Request) RequestJSON {
 		Allowance:     AssetsToAssetsJSON(request.Allowance()),
 		CallTarget:    callTargetToJSONObject(msg.Target),
 		Assets:        AssetsToAssetsJSON(request.Assets()),
-		GasBudget:     fmt.Sprint(gasBudget),
+		GasBudget:     strconv.FormatUint(gasBudget, 10),
 		IsEVM:         isEVM,
 		IsOffLedger:   request.IsOffLedger(),
 		Params:        msg.Params.ToCallArgumentsJSON(),

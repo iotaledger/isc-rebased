@@ -23,18 +23,7 @@ func testBasicAccounts(t *testing.T, env *ChainEnv) {
 }
 
 func TestBasicAccountsNLow(t *testing.T) {
-	// t.Skip("Cluster tests currently disabled")
 	runTest := func(tt *testing.T, n, t int) {
-		// e := SetupWithChain(tt, waspClusterOpts{nNodes: 4})
-		// chainNodes := make([]int, n)
-		// for i := range chainNodes {
-		// 	chainNodes[i] = i
-		// }
-		// chain, err := e.Clu.DeployChainWithDKG(chainNodes, chainNodes, uint16(t))
-		// require.NoError(tt, err)
-		// time.Sleep(1 * time.Second)
-		// env := newChainEnv(tt, e.Clu, chain)
-
 		blockKeepAmount := 10
 		clu := newCluster(tt, waspClusterOpts{
 			nNodes: 4,
@@ -59,9 +48,9 @@ func TestBasicAccountsNLow(t *testing.T) {
 		testAccounts(env)
 	}
 	t.Run("N=1", func(tt *testing.T) { runTest(tt, 1, 1) }) // passed
-	// t.Run("N=2", func(tt *testing.T) { runTest(tt, 2, 2) })
-	// t.Run("N=3", func(tt *testing.T) { runTest(tt, 3, 3) })
-	// t.Run("N=4", func(tt *testing.T) { runTest(tt, 4, 3) })
+	t.Run("N=2", func(tt *testing.T) { runTest(tt, 2, 2) }) // passed
+	t.Run("N=3", func(tt *testing.T) { runTest(tt, 3, 3) }) // passed
+	t.Run("N=4", func(tt *testing.T) { runTest(tt, 4, 3) }) // passed
 }
 
 func testAccounts(e *ChainEnv) {

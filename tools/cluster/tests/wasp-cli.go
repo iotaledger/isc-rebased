@@ -57,7 +57,7 @@ func newWaspCLITest(t *testing.T, opt ...waspClusterOpts) *WaspCLITest {
 
 	requestFundstext := w.MustRun("request-funds")
 	// regex example: Request funds for address atoi1qqqrqtn44e0563utwau9aaygt824qznjkhvr6836eratglg3cp2n6ydplqx: success
-	expectedRegexp := regexp.MustCompile(`(?i:Request funds for address)\s*([a-z]{1,4}1[a-z0-9]{59}).*(?i:success)`)
+	expectedRegexp := regexp.MustCompile(`(?i:Request funds for address)\s*(0x[a-fA-F0-9]{40}).*(?i:success)`)
 	rs := expectedRegexp.FindStringSubmatch(requestFundstext[len(requestFundstext)-1])
 	require.Len(t, rs, 2)
 	addr, err := cryptolib.AddressFromHex(rs[1])

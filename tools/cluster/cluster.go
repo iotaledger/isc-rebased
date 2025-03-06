@@ -294,7 +294,7 @@ func (clu *Cluster) DeployChain(allPeers, committeeNodes []int, quorum uint16, s
 	if err != nil {
 		return nil, fmt.Errorf("cant get gas coin: %w", err)
 	}
-	gasCoin := getCoinsRes.Data[2]
+	gasCoin := getCoinsRes.Data[3]
 	stateMetaData := *transaction.NewStateMetadata(
 		allmigrations.DefaultScheme.LatestSchemaVersion(),
 		origin.L1Commitment(
@@ -353,7 +353,6 @@ func (clu *Cluster) DeployChain(allPeers, committeeNodes []int, quorum uint16, s
 					retries--
 					continue
 				}
-				fmt.Println("err!!!: ", err)
 				return nil, err
 			}
 			break
@@ -377,7 +376,6 @@ func (clu *Cluster) addAllAccessNodes(chain *Chain, accessNodes []int) error {
 	for i, a := range accessNodes {
 		tx, err := clu.addAccessNode(a, chain)
 		if err != nil {
-			fmt.Println("err!!! 2: ", err)
 			return err
 		}
 		addAccessNodesTxs[i] = tx
@@ -389,7 +387,7 @@ func (clu *Cluster) addAllAccessNodes(chain *Chain, accessNodes []int) error {
 	for _, tx := range addAccessNodesTxs {
 		// ---------- wait until the requests are processed in all committee nodes
 
-		if _, err := peers.WaitUntilAllRequestsProcessedSuccessfully(context.Background(), chain.ChainID, tx, true, 30*time.Second); err != nil {
+		if _, err := peers.WaitUntilAllRequestsProcessedSuccessfully(context.Background(), chain.ChainID, tx, true, 5*time.Second); err != nil {
 			return fmt.Errorf("WaitAddAccessNode: %w", err)
 		}
 	}
@@ -401,13 +399,11 @@ func (clu *Cluster) addAllAccessNodes(chain *Chain, accessNodes []int) error {
 		//nolint:bodyclose // false positive
 		accessNodePeering, _, err := waspClient.NodeAPI.GetPeeringIdentity(context.Background()).Execute()
 		if err != nil {
-			fmt.Println("err!!! 3: ", err)
 			return err
 		}
 
 		accessNodePubKey, err := cryptolib.PublicKeyFromString(accessNodePeering.PublicKey)
 		if err != nil {
-			fmt.Println("err!!! 4: ", err)
 			return err
 		}
 
@@ -466,12 +462,10 @@ func (clu *Cluster) addAllAccessNodes(chain *Chain, accessNodes []int) error {
 
 	tx, err := govClient.PostRequest(context.Background(), governance.FuncChangeAccessNodes.Message(pubKeys), *scParams)
 	if err != nil {
-		fmt.Println("err!!! 5: ", err)
 		return err
 	}
 	_, err = peers.WaitUntilAllRequestsProcessedSuccessfully(context.Background(), chain.ChainID, tx, true, 30*time.Second)
 	if err != nil {
-		fmt.Println("err!!! 6: ", err)
 		return err
 	}
 

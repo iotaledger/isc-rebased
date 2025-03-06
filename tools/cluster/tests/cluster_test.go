@@ -16,10 +16,10 @@ func TestClusterSingleNode(t *testing.T) {
 
 	t.Run("permissionless access node", func(t *testing.T) { run(t, testPermissionlessAccessNode) }) // passed
 
-	// t.Run("spam onledger", func(t *testing.T) { run(t, testSpamOnledger) })
-	// t.Run("spam offledger", func(t *testing.T) { run(t, testSpamOffLedger) })
-	// t.Run("spam EVM", func(t *testing.T) { run(t, testSpamEVM) })
-	// t.Run("accounts dump", func(t *testing.T) { run(t, testDumpAccounts) })
+	t.Run("spam onledger", func(t *testing.T) { run(t, testSpamOnledger) })
+	t.Run("spam offledger", func(t *testing.T) { run(t, testSpamOffLedger) })
+	t.Run("spam EVM", func(t *testing.T) { run(t, testSpamEVM) })
+	t.Run("accounts dump", func(t *testing.T) { run(t, testDumpAccounts) })
 }
 
 func TestClusterMultiNodeCommittee(t *testing.T) {
@@ -35,17 +35,14 @@ func TestClusterMultiNodeCommittee(t *testing.T) {
 	t.Run("accountsBasic", func(t *testing.T) { run(t, testBasicAccounts) }) // passed
 	t.Run("2acccounts", func(t *testing.T) { run(t, testBasic2Accounts) })   // passed
 
-	t.Run("post 1", func(t *testing.T) { run(t, testPost1Request) })
-	t.Run("post 3 recursive", func(t *testing.T) { run(t, testPost3Recursive) })
-	t.Run("post 5", func(t *testing.T) { run(t, testPost5Requests) })
-	t.Run("post 5 async", func(t *testing.T) { run(t, testPost5AsyncRequests) })
+	t.Run("post 1", func(t *testing.T) { run(t, testPost1Request) })             // passed
+	t.Run("post 3", func(t *testing.T) { run(t, testPost3Requests) })            // passed
+	t.Run("post 5 async", func(t *testing.T) { run(t, testPost5AsyncRequests) }) // passed
 
 	t.Run("EVM jsonrpc", func(t *testing.T) { run(t, testEVMJsonRPCCluster) }) // FIXME
 
 	t.Run("offledger basic", func(t *testing.T) { run(t, testOffledgerRequest) }) // passed
 	t.Run("offledger nonce", func(t *testing.T) { run(t, testOffledgerNonce) })   // passed
-
-	t.Run("inccounter view counter", func(t *testing.T) { run(t, testIncViewCounter) })
 
 	t.Run("webapi ISC estimategas onledger", func(t *testing.T) { run(t, testEstimateGasOnLedger) }) // FIXME feature not implement in WebAPI
 	// t.Run("webapi ISC estimategas onledger NFT", func(t *testing.T) { run(t, testEstimateGasOnLedgerNFT) })

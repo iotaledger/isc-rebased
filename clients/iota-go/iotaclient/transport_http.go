@@ -2,7 +2,6 @@ package iotaclient
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/iotaledger/wasp/clients/iota-go/iotaconn"
 )
@@ -23,7 +22,6 @@ func NewHTTP(url string, waitUntilEffectsVisible *WaitParams) *Client {
 }
 
 func (h *httpTransport) Call(ctx context.Context, v any, method iotaconn.JsonRPCMethod, args ...any) error {
-	fmt.Println("h.client.URL(): ", h.client.URL())
 	return h.client.CallContext(ctx, v, method, args...)
 }
 
