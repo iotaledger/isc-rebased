@@ -30,7 +30,7 @@ func run() error {
 	}
 
 	if err := cache.SetCacheSize(int(size)); err != nil {
-		Component.LogPanic(err)
+		Component.LogPanic(err.Error())
 	}
 
 	if err := Component.Daemon().BackgroundWorker("Cache statistics", func(ctx context.Context) {

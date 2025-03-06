@@ -82,7 +82,7 @@ func initConfigParams(c *dig.Container) error {
 			WebAPIBindAddress: ParamsWebAPI.BindAddress,
 		}
 	}); err != nil {
-		Component.LogPanic(err)
+		Component.LogPanic(err.Error())
 	}
 
 	return nil
@@ -310,7 +310,7 @@ func provide(c *dig.Container) error {
 			WebsocketPublisher: websocketService,
 		}
 	}); err != nil {
-		Component.LogPanic(err)
+		Component.LogPanic(err.Error())
 	}
 
 	return nil

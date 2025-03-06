@@ -1,12 +1,14 @@
 package bls
 
 import (
-	"github.com/btcsuite/btcutil/base58"
+	`bytes`
+	`io`
+
+	"github.com/btcsuite/btcd/btcutil/base58"
 	"go.dedis.ch/kyber/v3"
 	"go.dedis.ch/kyber/v3/sign/bdn"
 
 	"github.com/iotaledger/hive.go/ierrors"
-	"github.com/iotaledger/hive.go/serializer/v2/marshalutil"
 )
 
 // PrivateKey is the type of BLS private keys.
@@ -15,12 +17,11 @@ type PrivateKey struct {
 }
 
 // PrivateKeyFromBytes creates a PrivateKey from the given bytes.
-func PrivateKeyFromBytes(bytes []byte) (privateKey PrivateKey, consumedBytes int, err error) {
-	marshalUtil := marshalutil.New(bytes)
-	if privateKey, err = PrivateKeyFromMarshalUtil(marshalUtil); err != nil {
-		err = ierrors.Wrap(err, "failed to parse PrivateKey from MarshalUtil")
+func PrivateKeyFromBytes(b []byte) (privateKey PrivateKey, err error) {
+	marshalUtil := bytes.NewReader(b)
+	if privateKey, err = PrivateKeyFromReader(marshalUtil); err != nil {
+		err = ierrors.Wrap(err, "failed to parse PrivateKey from Reader")
 	}
-	consumedBytes = marshalUtil.ReadOffset()
 
 	return
 }
@@ -34,7 +35,7 @@ func PrivateKeyFromBase58EncodedString(base58String string) (privateKey PrivateK
 		return
 	}
 
-	if privateKey, _, err = PrivateKeyFromBytes(bytes); err != nil {
+	if privateKey, err = PrivateKeyFromBytes(bytes); err != nil {
 		err = ierrors.Wrap(err, "failed to parse PrivateKey from bytes")
 
 		return
@@ -43,16 +44,22 @@ func PrivateKeyFromBase58EncodedString(base58String string) (privateKey PrivateK
 	return
 }
 
-// PrivateKeyFromMarshalUtil unmarshals a PrivateKey using a MarshalUtil (for easier unmarshalling).
-func PrivateKeyFromMarshalUtil(marshalUtil *marshalutil.MarshalUtil) (privateKey PrivateKey, err error) {
-	bytes, err := marshalUtil.ReadBytes(PrivateKeySize)
-	if err != nil {
-		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read PrivateKey bytes: %w", err)
+// PrivateKeyFromReader unmarshals a PrivateKey using a Reader (for easier unmarshalling).
+func PrivateKeyFromReader(reader *bytes.Reader) (privateKey PrivateKey, err error) {
+	privateKeyBytes := make([]byte, PrivateKeySize)
+	readLength, err := io.ReadFull(reader, privateKeyBytes)
 
+	if err != nil {
+		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read PrivateKey bytes: %v", err)
 		return
 	}
 
-	if err = privateKey.Scalar.UnmarshalBinary(bytes); err != nil {
+	if readLength != PrivateKeySize {
+		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read PrivateKey bytes: %v", err)
+		return
+	}
+
+	if err = privateKey.Scalar.UnmarshalBinary(privateKeyBytes); err != nil {
 		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to unmarshal PrivateKey: %w", err)
 
 		return

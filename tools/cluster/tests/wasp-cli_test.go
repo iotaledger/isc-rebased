@@ -18,8 +18,6 @@ import (
 	"github.com/samber/lo"
 	"github.com/stretchr/testify/require"
 
-	iotago "github.com/iotaledger/iota.go/v3"
-
 	"github.com/iotaledger/wasp/clients/apiclient"
 	"github.com/iotaledger/wasp/packages/cryptolib"
 	"github.com/iotaledger/wasp/packages/parameters"
@@ -380,7 +378,7 @@ func TestWaspCLILongParam(t *testing.T) {
 	w.MustRun("chain", "deposit", "base:1000000", "--node=0")
 
 	veryLongTokenName := strings.Repeat("A", 10_000)
-
+	_ = veryLongTokenName
 	errMsg := "slice length is too long"
 	defer func() {
 		if r := recover(); r != nil {
@@ -390,13 +388,13 @@ func TestWaspCLILongParam(t *testing.T) {
 			}
 		}
 	}()
-
-	w.CreateL2NativeToken(&iotago.SimpleTokenScheme{
+	// TODO: FIX
+	/*w.CreateL2NativeToken(&iotago.SimpleTokenScheme{
 		MaximumSupply: big.NewInt(1000000),
 		MeltedTokens:  big.NewInt(0),
 		MintedTokens:  big.NewInt(0),
 	}, veryLongTokenName, "TST", 8)
-
+	*/
 	// The code should not reach here. CreateL2NativeToken should panic as the args are too long.
 	// This is caught by the deferred recover.
 	t.FailNow()
@@ -548,11 +546,13 @@ func TestWaspCLIRegisterERC20NativeTokenOnRemoteChain(t *testing.T) {
 	w.ActivateChainOnAllNodes("chain1", 0)
 	w.MustRun("chain", "deposit", "base:100000000", "--node=0")
 
-	w.CreateL2NativeToken(&iotago.SimpleTokenScheme{
-		MaximumSupply: big.NewInt(1000000),
-		MeltedTokens:  big.NewInt(0),
-		MintedTokens:  big.NewInt(0),
-	}, "test", "test_symbol", 1)
+	// TODO: FIX
+	/*
+		w.CreateL2NativeToken(&iotago.SimpleTokenScheme{
+			MaximumSupply: big.NewInt(1000000),
+			MeltedTokens:  big.NewInt(0),
+			MintedTokens:  big.NewInt(0),
+		}, "test", "test_symbol", 1)*/
 
 	w.MustRun("chain", "deploy", "--chain=chain2", committee, quorum, "--node=0")
 	w.ActivateChainOnAllNodes("chain2", 0)

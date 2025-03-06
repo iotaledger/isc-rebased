@@ -71,7 +71,7 @@ func provide(c *dig.Container) error {
 			TrustedNetworkManager: tnmImpl,
 		}
 	}); err != nil {
-		Component.LogPanic(err)
+		Component.LogPanic(err.Error())
 	}
 
 	return nil

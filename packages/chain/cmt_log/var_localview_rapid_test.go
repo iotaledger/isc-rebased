@@ -12,8 +12,6 @@ package cmt_log_test
 // 	"github.com/stretchr/testify/require"
 // 	"pgregory.net/rapid"
 
-// 	iotago "github.com/iotaledger/iota.go/v3"
-
 // 	"github.com/iotaledger/wasp/clients/iota-go/iotago/iotatest"
 // 	"github.com/iotaledger/wasp/clients/iscmove"
 // 	"github.com/iotaledger/wasp/clients/iscmove/iscmovetest"

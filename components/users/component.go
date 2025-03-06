@@ -72,7 +72,7 @@ func provide(c *dig.Container) error {
 			UserManager: userManager,
 		}
 	}); err != nil {
-		Component.LogPanic(err)
+		Component.LogPanic(err.Error())
 	}
 
 	return nil

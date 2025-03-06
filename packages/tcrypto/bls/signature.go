@@ -1,11 +1,12 @@
 package bls
 
 import (
-	"github.com/btcsuite/btcutil/base58"
+	`bytes`
+	`io`
 
+	"github.com/btcsuite/btcd/btcutil/base58"
 	"github.com/iotaledger/hive.go/ierrors"
 	"github.com/iotaledger/hive.go/serializer/v2/byteutils"
-	"github.com/iotaledger/hive.go/serializer/v2/marshalutil"
 )
 
 // region Signature ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -14,14 +15,13 @@ import (
 type Signature [SignatureSize]byte
 
 // SignatureFromBytes unmarshals a Signature from a sequence of bytes.
-func SignatureFromBytes(bytes []byte) (signature Signature, consumedBytes int, err error) {
-	marshalUtil := marshalutil.New(bytes)
-	if signature, err = SignatureFromMarshalUtil(marshalUtil); err != nil {
-		err = ierrors.Wrap(err, "failed to parse Signature from MarshalUtil")
+func SignatureFromBytes(b []byte) (signature Signature, err error) {
+	marshalUtil := bytes.NewReader(b)
+	if signature, err = SignatureFromReader(marshalUtil); err != nil {
+		err = ierrors.Wrap(err, "failed to parse Signature from Reader")
 
 		return
 	}
-	consumedBytes = marshalUtil.ReadOffset()
 
 	return
 }
@@ -35,7 +35,7 @@ func SignatureFromBase58EncodedString(base58EncodedString string) (signature Sig
 		return
 	}
 
-	if signature, _, err = SignatureFromBytes(bytes); err != nil {
+	if signature, err = SignatureFromBytes(bytes); err != nil {
 		err = ierrors.Wrap(err, "failed to parse Signature from bytes")
 
 		return
@@ -44,14 +44,21 @@ func SignatureFromBase58EncodedString(base58EncodedString string) (signature Sig
 	return
 }
 
-// SignatureFromMarshalUtil unmarshals a Signature using a MarshalUtil (for easier unmarshalling).
-func SignatureFromMarshalUtil(marshalUtil *marshalutil.MarshalUtil) (signature Signature, err error) {
-	signatureBytes, err := marshalUtil.ReadBytes(SignatureSize)
-	if err != nil {
-		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read signature bytes: %w", err)
+// SignatureFromReader unmarshals a Signature using a Reader (for easier unmarshalling).
+func SignatureFromReader(reader *bytes.Reader) (signature Signature, err error) {
+	signatureBytes := make([]byte, SignatureSize)
+	readLength, err := io.ReadFull(reader, signatureBytes)
 
+	if err != nil {
+		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read signature bytes: %v", err)
 		return
 	}
+
+	if readLength != SignatureSize {
+		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read signature bytes: %v", err)
+		return
+	}
+
 	copy(signature[:], signatureBytes)
 
 	return
@@ -92,14 +99,13 @@ func NewSignatureWithPublicKey(publicKey PublicKey, signature Signature) Signatu
 }
 
 // SignatureWithPublicKeyFromBytes unmarshals a SignatureWithPublicKey from a sequence of bytes.
-func SignatureWithPublicKeyFromBytes(bytes []byte) (signatureWithPublicKey SignatureWithPublicKey, consumedBytes int, err error) {
-	marshalUtil := marshalutil.New(bytes)
-	if signatureWithPublicKey, err = SignatureWithPublicKeyFromMarshalUtil(marshalUtil); err != nil {
-		err = ierrors.Wrap(err, "failed to parse SignatureWithPublicKey from MarshalUtil")
+func SignatureWithPublicKeyFromBytes(b []byte) (signatureWithPublicKey SignatureWithPublicKey, err error) {
+	marshalUtil := bytes.NewReader(b)
+	if signatureWithPublicKey, err = SignatureWithPublicKeyFromReader(marshalUtil); err != nil {
+		err = ierrors.Wrap(err, "failed to parse SignatureWithPublicKey from Reader")
 
 		return
 	}
-	consumedBytes = marshalUtil.ReadOffset()
 
 	return
 }
@@ -113,7 +119,7 @@ func SignatureWithPublicKeyFromBase58EncodedString(base58EncodedString string) (
 		return
 	}
 
-	if signatureWithPublicKey, _, err = SignatureWithPublicKeyFromBytes(bytes); err != nil {
+	if signatureWithPublicKey, err = SignatureWithPublicKeyFromBytes(bytes); err != nil {
 		err = ierrors.Wrap(err, "failed to parse SignatureWithPublicKey from bytes")
 
 		return
@@ -122,16 +128,16 @@ func SignatureWithPublicKeyFromBase58EncodedString(base58EncodedString string) (
 	return
 }
 
-// SignatureWithPublicKeyFromMarshalUtil unmarshals a SignatureWithPublicKey using a MarshalUtil (for easier unmarshalling).
-func SignatureWithPublicKeyFromMarshalUtil(marshalUtil *marshalutil.MarshalUtil) (signatureWithPublicKey SignatureWithPublicKey, err error) {
-	if signatureWithPublicKey.PublicKey, err = PublicKeyFromMarshalUtil(marshalUtil); err != nil {
-		err = ierrors.Wrap(err, "failed to parse PublicKey from MarshalUtil")
+// SignatureWithPublicKeyFromReader unmarshals a SignatureWithPublicKey using a Reader (for easier unmarshalling).
+func SignatureWithPublicKeyFromReader(reader *bytes.Reader) (signatureWithPublicKey SignatureWithPublicKey, err error) {
+	if signatureWithPublicKey.PublicKey, err = PublicKeyFromReader(reader); err != nil {
+		err = ierrors.Wrap(err, "failed to parse PublicKey from Reader")
 
 		return
 	}
 
-	if signatureWithPublicKey.Signature, err = SignatureFromMarshalUtil(marshalUtil); err != nil {
-		err = ierrors.Wrap(err, "failed to parse Signature from MarshalUtil")
+	if signatureWithPublicKey.Signature, err = SignatureFromReader(reader); err != nil {
+		err = ierrors.Wrap(err, "failed to parse Signature from Reader")
 
 		return
 	}
@@ -155,15 +161,15 @@ func (s SignatureWithPublicKey) Encode() ([]byte, error) {
 }
 
 // Encode returns the signature in bytes.
-func (s *SignatureWithPublicKey) Decode(b []byte) (int, error) {
-	decoded, consumedBytes, err := SignatureWithPublicKeyFromBytes(b)
+func (s *SignatureWithPublicKey) Decode(b []byte) error {
+	decoded, err := SignatureWithPublicKeyFromBytes(b)
 	if err != nil {
-		return 0, err
+		return err
 	}
 	s.PublicKey = decoded.PublicKey
 	s.Signature = decoded.Signature
 
-	return consumedBytes, nil
+	return nil
 }
 
 // Base58 returns a base58 encoded version of the SignatureWithPublicKey.

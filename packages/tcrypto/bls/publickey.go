@@ -1,12 +1,14 @@
 package bls
 
 import (
-	"github.com/btcsuite/btcutil/base58"
+	`bytes`
+	`io`
+
+	"github.com/btcsuite/btcd/btcutil/base58"
 	"go.dedis.ch/kyber/v3"
 	"go.dedis.ch/kyber/v3/sign/bdn"
 
 	"github.com/iotaledger/hive.go/ierrors"
-	"github.com/iotaledger/hive.go/serializer/v2/marshalutil"
 )
 
 // PublicKey is the type of BLS public keys.
@@ -15,12 +17,12 @@ type PublicKey struct {
 }
 
 // PublicKeyFromBytes creates a PublicKey from the given bytes.
-func PublicKeyFromBytes(bytes []byte) (publicKey PublicKey, consumedBytes int, err error) {
-	marshalUtil := marshalutil.New(bytes)
-	if publicKey, err = PublicKeyFromMarshalUtil(marshalUtil); err != nil {
-		err = ierrors.Wrap(err, "failed to parse PublicKey from MarshalUtil")
+func PublicKeyFromBytes(b []byte) (publicKey PublicKey, err error) {
+	marshalUtil := bytes.NewReader(b)
+
+	if publicKey, err = PublicKeyFromReader(marshalUtil); err != nil {
+		err = ierrors.Wrap(err, "failed to parse PublicKey from Reader")
 	}
-	consumedBytes = marshalUtil.ReadOffset()
 
 	return
 }
@@ -34,7 +36,7 @@ func PublicKeyFromBase58EncodedString(base58String string) (publicKey PublicKey,
 		return
 	}
 
-	if publicKey, _, err = PublicKeyFromBytes(bytes); err != nil {
+	if publicKey, err = PublicKeyFromBytes(bytes); err != nil {
 		err = ierrors.Wrap(err, "failed to parse PublicKey from bytes")
 
 		return
@@ -43,16 +45,23 @@ func PublicKeyFromBase58EncodedString(base58String string) (publicKey PublicKey,
 	return
 }
 
-// PublicKeyFromMarshalUtil unmarshals a PublicKey using a MarshalUtil (for easier unmarshalling).
-func PublicKeyFromMarshalUtil(marshalUtil *marshalutil.MarshalUtil) (publicKey PublicKey, err error) {
-	bytes, err := marshalUtil.ReadBytes(PublicKeySize)
-	if err != nil {
-		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read PublicKey bytes: %w", err)
+// PublicKeyFromReader unmarshals a PublicKey using a Reader (for easier unmarshalling).
+func PublicKeyFromReader(reader *bytes.Reader) (publicKey PublicKey, err error) {
+	pubKeyBytes := make([]byte, PublicKeySize)
+	readLength, err := io.ReadFull(reader, pubKeyBytes)
 
+	if err != nil {
+		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read PublicKey bytes: %v", err)
 		return
 	}
+
+	if readLength != PublicKeySize {
+		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to read PublicKey bytes: %v", err)
+		return
+	}
+
 	publicKey.Point = blsSuite.G2().Point()
-	if err = publicKey.Point.UnmarshalBinary(bytes); err != nil {
+	if err = publicKey.Point.UnmarshalBinary(pubKeyBytes); err != nil {
 		err = ierrors.Wrapf(ErrParseBytesFailed, "failed to unmarshal PublicKey: %w", err)
 
 		return

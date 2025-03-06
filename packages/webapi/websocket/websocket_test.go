@@ -8,8 +8,6 @@ import (
 	"golang.org/x/net/context"
 	websocketserver "nhooyr.io/websocket"
 
-	"github.com/iotaledger/hive.go/app/configuration"
-	appLogger "github.com/iotaledger/hive.go/app/logger"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/hive.go/web/websockethub"
 
@@ -19,13 +17,14 @@ import (
 )
 
 func InitWebsocket(ctx context.Context, t *testing.T, eventsToSubscribe []publisher.ISCEventType) (*Service, *websockethub.Hub, *solo.Chain) {
-	_ = appLogger.InitGlobalLogger(configuration.New())
-	log := logger.NewLogger("Test")
+	rootLogger, _ := logger.NewRootLogger(logger.DefaultCfg)
+	_ = logger.SetGlobalLogger(rootLogger)
+	log := logger.NewLogger("Test").Named("")
 
 	//nolint:contextcheck
 	env := solo.New(t, &solo.InitOptions{Log: log})
 
-	websocketHub := websockethub.NewHub(log.Named("Hub"), &websocketserver.AcceptOptions{InsecureSkipVerify: true}, 500, 500, 500)
+	websocketHub := websockethub.NewHub(nil, &websocketserver.AcceptOptions{InsecureSkipVerify: true}, 500, 500, 500)
 	ws := NewWebsocketService(log.Named("Service"), websocketHub, []publisher.ISCEventType{
 		publisher.ISCEventKindNewBlock,
 		publisher.ISCEventKindReceipt,

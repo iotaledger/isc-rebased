@@ -29,7 +29,7 @@ func provide(c *dig.Container) error {
 			ProcessorsConfig: coreprocessors.NewConfig(),
 		}
 	}); err != nil {
-		Component.LogPanic(err)
+		Component.LogPanic(err.Error())
 	}
 
 	return nil

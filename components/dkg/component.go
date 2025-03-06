@@ -53,7 +53,7 @@ func provide(c *dig.Container) error {
 			Node: node,
 		}
 	}); err != nil {
-		Component.LogPanic(err)
+		Component.LogPanic(err.Error())
 	}
 
 	return nil
