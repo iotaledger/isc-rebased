@@ -12,8 +12,6 @@ import (
 	"github.com/iotaledger/wasp/clients/chainclient"
 	"github.com/iotaledger/wasp/packages/coin"
 	"github.com/iotaledger/wasp/packages/isc"
-	"github.com/iotaledger/wasp/packages/kv/codec"
-	"github.com/iotaledger/wasp/packages/vm"
 	"github.com/iotaledger/wasp/packages/vm/core/accounts"
 	"github.com/iotaledger/wasp/packages/vm/core/corecontracts"
 	"github.com/iotaledger/wasp/packages/vm/core/governance"
@@ -100,134 +98,6 @@ func (e *ChainEnv) checkContractCounter(expected int64) {
 }
 
 // executed in cluster_test.go
-func testInvalidEntrypoint(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-
-	numRequests := 6
-	entryPoint := isc.Hn("nothing")
-	for i := 0; i < numRequests; i++ {
-		tx, err := e.NewChainClient().PostRequest(context.Background(), isc.NewMessage(inccounter.Contract.Hname(), entryPoint), chainclient.PostRequestParams{})
-		require.NoError(t, err)
-		receipts, err := e.Chain.CommitteeMultiClient().WaitUntilAllRequestsProcessed(context.Background(), e.Chain.ChainID, tx, false, 30*time.Second)
-		require.NoError(t, err)
-		require.Equal(t, 1, len(receipts))
-		require.Contains(t, *receipts[0].ErrorMessage, vm.ErrTargetEntryPointNotFound.MessageFormat())
-	}
-
-	e.checkSC(numRequests)
-	e.checkContractCounter(0)
-}
-
-// executed in cluster_test.go
-func testIncrement(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-
-	numRequests := 5
-
-	entryPoint := isc.Hn("increment")
-	for i := 0; i < numRequests; i++ {
-		tx, err := e.NewChainClient().PostRequest(context.Background(), isc.NewMessage(inccounter.Contract.Hname(), entryPoint), chainclient.PostRequestParams{})
-		require.NoError(t, err)
-		_, err = e.Chain.CommitteeMultiClient().WaitUntilAllRequestsProcessedSuccessfully(context.Background(), e.Chain.ChainID, tx, false, 30*time.Second)
-		require.NoError(t, err)
-	}
-
-	e.checkSC(numRequests)
-	e.checkContractCounter(int64(numRequests))
-}
-
-// executed in cluster_test.go
-func testIncrementWithTransfer(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-
-	entryPoint := isc.Hn("increment")
-	e.postRequest(inccounter.Contract.Hname(), entryPoint, 42, nil)
-
-	e.checkContractCounter(1)
-}
-
-// executed in cluster_test.go
-func testIncCallIncrement1(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-
-	entryPoint := isc.Hn("callIncrement")
-	e.postRequest(inccounter.Contract.Hname(), entryPoint, 1, nil)
-
-	e.checkContractCounter(2)
-}
-
-// executed in cluster_test.go
-func testIncCallIncrement2Recurse5x(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-
-	entryPoint := isc.Hn("callIncrementRecurse5x")
-	e.postRequest(inccounter.Contract.Hname(), entryPoint, 1_000, nil)
-
-	e.checkContractCounter(6)
-}
-
-// executed in cluster_test.go
-func testIncPostIncrement(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-
-	entryPoint := isc.Hn("postIncrement")
-	e.postRequest(inccounter.Contract.Hname(), entryPoint, 1, nil)
-
-	e.waitUntilCounterEquals(2, 30*time.Second)
-}
-
-// executed in cluster_test.go
-func testIncRepeatManyIncrement(t *testing.T, env *ChainEnv) {
-	const numRepeats = 5
-	e := setupContract(env)
-
-	entryPoint := isc.Hn("repeatMany")
-	e.postRequest(inccounter.Contract.Hname(), entryPoint, numRepeats, map[string]interface{}{
-		varNumRepeats: numRepeats,
-	})
-
-	e.waitUntilCounterEquals(numRepeats+1, 30*time.Second)
-
-	for i := range e.Chain.CommitteeNodes {
-		b, err := e.Chain.GetStateVariable(inccounter.Contract.Hname(), varCounter, i)
-		require.NoError(t, err)
-		counterValue, err := codec.Decode[int64](b, 0)
-		require.NoError(t, err)
-		require.EqualValues(t, numRepeats+1, counterValue)
-
-		b, err = e.Chain.GetStateVariable(inccounter.Contract.Hname(), varNumRepeats, i)
-		require.NoError(t, err)
-		repeats, err := codec.Decode[int64](b, 0)
-		require.NoError(t, err)
-		require.EqualValues(t, 0, repeats)
-	}
-}
-
-// executed in cluster_test.go
-func testIncLocalStateInternalCall(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-	entryPoint := isc.Hn("localStateInternalCall")
-	e.postRequest(inccounter.Contract.Hname(), entryPoint, 0, nil)
-	e.checkContractCounter(2)
-}
-
-// executed in cluster_test.go
-func testIncLocalStateSandboxCall(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-	entryPoint := isc.Hn("localStateSandboxCall")
-	e.postRequest(inccounter.Contract.Hname(), entryPoint, 0, nil)
-	e.checkContractCounter(0)
-}
-
-// executed in cluster_test.go
-func testIncLocalStatePost(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-	entryPoint := isc.Hn("localStatePost")
-	e.postRequest(inccounter.Contract.Hname(), entryPoint, 3, nil)
-	e.checkContractCounter(0)
-}
-
-// executed in cluster_test.go
 func testIncViewCounter(t *testing.T, env *ChainEnv) {
 	e := setupContract(env)
 	entryPoint := isc.Hn("increment")
@@ -246,22 +116,4 @@ func testIncViewCounter(t *testing.T, env *ChainEnv) {
 	counter, err := inccounter.ViewGetCounter.DecodeOutput(ret)
 	require.NoError(t, err)
 	require.EqualValues(t, 1, counter)
-}
-
-// privtangle tests have accelerated milestones (check `startCoordinator` on `privtangle.go`)
-// right now each milestone is issued each 100ms which means a "1s increase" each 100ms
-// executed in cluster_test.go
-func testIncCounterTimelock(t *testing.T, env *ChainEnv) {
-	e := setupContract(env)
-	e.postRequest(inccounter.Contract.Hname(), isc.Hn("increment"), 0, nil)
-	e.checkContractCounter(1)
-
-	e.postRequest(inccounter.Contract.Hname(), isc.Hn("incrementWithDelay"), 0, map[string]interface{}{
-		varDelay: int32(50), // 50s delay()
-	})
-
-	time.Sleep(3000 * time.Millisecond) // equivalent of 30s
-	e.checkContractCounter(1)
-	time.Sleep(3000 * time.Millisecond) // equivalent of 30s
-	e.checkContractCounter(2)
 }

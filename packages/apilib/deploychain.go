@@ -5,12 +5,14 @@ package apilib
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 
 	"github.com/iotaledger/wasp/clients"
 	"github.com/iotaledger/wasp/clients/iota-go/iotaclient"
 	"github.com/iotaledger/wasp/clients/iota-go/iotago"
+	"github.com/iotaledger/wasp/clients/iota-go/iotajsonrpc"
 	"github.com/iotaledger/wasp/clients/iscmove/iscmoveclient"
 	"github.com/iotaledger/wasp/clients/multiclient"
 	"github.com/iotaledger/wasp/packages/cryptolib"
@@ -79,6 +81,34 @@ func DeployChain(ctx context.Context, par CreateChainParams, stateControllerAddr
 	fmt.Fprint(textout, par.Prefix)
 	fmt.Fprintf(textout, "Chain has been created successfully on the Tangle.\n* ChainID: %s\n* State address: %s\n",
 		anchor.ObjectID.String(), stateControllerAddr.String())
+
+	// transfer the GasCoin object
+	txnBytes, err := par.Layer1Client.TransferObject(ctx, iotaclient.TransferObjectRequest{
+		Signer:    par.OriginatorKeyPair.Address().AsIotaAddress(),
+		ObjectID:  par.GasCoinObjectID,
+		GasBudget: iotajsonrpc.NewBigInt(iotaclient.DefaultGasBudget),
+		Recipient: stateControllerAddr.AsIotaAddress(),
+	})
+	if err != nil {
+		return isc.ChainID{}, err
+	}
+	txnResponse, err := par.Layer1Client.SignAndExecuteTransaction(
+		context.Background(),
+		&iotaclient.SignAndExecuteTransactionRequest{
+			TxDataBytes: txnBytes.TxBytes,
+			Signer:      cryptolib.SignerToIotaSigner(par.OriginatorKeyPair),
+			Options: &iotajsonrpc.IotaTransactionBlockResponseOptions{
+				ShowEffects:       true,
+				ShowObjectChanges: true,
+			},
+		},
+	)
+	if err != nil {
+		return isc.ChainID{}, err
+	}
+	if !txnResponse.Effects.Data.IsSuccess() {
+		return isc.ChainID{}, errors.New("failed to transfer GasCoin")
+	}
 
 	fmt.Fprintf(textout, "Make sure to activate the chain on all committee nodes\n")
 

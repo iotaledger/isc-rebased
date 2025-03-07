@@ -1,0 +1,1189 @@
+=== RUN   TestWaspCLISendFunds
+Initializing /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cluster/wasp0
+Initializing /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cluster/wasp1
+Initializing /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cluster/wasp2
+Initializing /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cluster/wasp3
+[cluster] starting 4 Wasp nodes...
+[ wasp 3] No users config file found via 'users.json'. Loading default settings.
+[ wasp 1] No users config file found via 'users.json'. Loading default settings.
+[ wasp 0] No users config file found via 'users.json'. Loading default settings.
+[ wasp 2] No users config file found via 'users.json'. Loading default settings.
+[ wasp 2] >>>>> Starting Wasp v1.0.3-1833-g9623fc7a6 <<<<<
+[ wasp 2] 
+[ wasp 0] >>>>> Starting Wasp v1.0.3-1833-g9623fc7a6 <<<<<
+[ wasp 0] 
+[ wasp 3] >>>>> Starting Wasp v1.0.3-1833-g9623fc7a6 <<<<<
+[ wasp 3] 
+[ wasp 1] >>>>> Starting Wasp v1.0.3-1833-g9623fc7a6 <<<<<
+[ wasp 1] 
+[ wasp 3] Parameters loaded: 
+[ wasp 3]  {
+[ wasp 3]   "app": {
+[ wasp 3]     "checkforupdates": true,
+[ wasp 3]     "shutdown": {
+[ wasp 3]       "log": {
+[ wasp 3]         "enabled": true,
+[ wasp 3]         "filepath": "shutdown.log"
+[ wasp 3]       },
+[ wasp 3]       "stopgraceperiod": "5m"
+[ wasp 3]     }
+[ wasp 3]   },
+[ wasp 3]   "cache": {
+[ wasp 3]     "cachesize": "64MiB",
+[ wasp 3]     "cachestatsinterval": 30000000000,
+[ wasp 3]     "enabled": true
+[ wasp 3]   },
+[ wasp 3]   "chains": {
+[ wasp 3]     "apicachettl": "5m",
+[ wasp 3]     "awaitreceiptcleanupevery": 100,
+[ wasp 3]     "broadcastinterval": "5s",
+[ wasp 3]     "broadcastuptonpeers": 2,
+[ wasp 3]     "consensusdelay": "50ms",
+[ wasp 3]     "consensusinstsinadvance": 3,
+[ wasp 3]     "derivealiasoutputbyquorum": true,
+[ wasp 3]     "mempoolmaxoffledgerinpool": 2000,
+[ wasp 3]     "mempoolmaxoffledgertopropose": 500,
+[ wasp 3]     "mempoolmaxonledgerinpool": 1000,
+[ wasp 3]     "mempoolmaxonledgertopropose": 100,
+[ wasp 3]     "mempoolmaxtimedinpool": 100,
+[ wasp 3]     "mempoolonledgerrefreshmininterval": 600000000000,
+[ wasp 3]     "mempoolttl": 86400000000000,
+[ wasp 3]     "pipelininglimit": -1,
+[ wasp 3]     "postponerecoverymilestones": 3,
+[ wasp 3]     "printstatusperiod": 3000000000,
+[ wasp 3]     "pullmissingrequestsfromcommittee": true,
+[ wasp 3]     "recoverytimeout": 20000000000,
+[ wasp 3]     "redeliveryperiod": 2000000000
+[ wasp 3]   },
+[ wasp 3]   "db": {
+[ wasp 3]     "chainstate": {
+[ wasp 3]       "cachesize": 33554432,
+[ wasp 3]       "path": "waspdb/chains/data"
+[ wasp 3]     },
+[ wasp 3]     "debugskiphealthcheck": true,
+[ wasp 3]     "engine": "rocksdb"
+[ wasp 3]   },
+[ wasp 3]   "debugrequestloggerenabled": true,
+[ wasp 3]   "l1": {
+[ wasp 3]     "httpurl": "https://api.iota-rebased-alphanet.iota.cafe",
+[ wasp 3]     "maxconnectionattempts": 30,
+[ wasp 3] [ wasp 1]     "packageid": "0xecba277948e487795b041b4a035b2a9b5d50ef78979901b8ecc7424f9258790a",
+[ wasp 3]     "targetnetworkname": "IOTA",
+[ wasp 3]     "websocketurl": "wss://api.iota-rebased-alphanet.iota.cafe"
+[ wasp 3]   },
+[ wasp 3]   "logger": {
+[ wasp 3]     "disablecaller": true,
+[ wasp 3]     "disableevents": true,
+[ wasp 3]     "disablestacktrace": false,
+[ wasp 3]     "encoding": "console",
+[ wasp 3]     "encodingconfig": {
+[ wasp 3]       "timeencoder": "rfc3339nano"
+[ wasp 2] [ wasp 3]     },
+[ wasp 3]     "level": "debug",
+[ wasp 3]     "outputpaths": [
+[ wasp 3]       "stdout",
+[ wasp 3]       "wasp.log"
+[ wasp 3]     ],
+[ wasp 3]     "stacktracelevel": "panic"
+[ wasp 3]   },
+[ wasp 3]   "p2p": {
+[ wasp 3]     "db": {
+[ wasp 3]       "path": "waspdb/p2pstore"Parameters loaded: 
+[ wasp 3]     },
+[ wasp 3]     "identity": {
+[ wasp 3]       "filepath": "waspdb/identity/identity.key"
+[ wasp 3]     }
+[ wasp 3]   },
+[ wasp 3]   "peering": {
+[ wasp 3]     "peeringurl": "localhost:14003",
+[ wasp 3]     "port": 14003
+[ wasp 3]   },
+[ wasp 3]   "profiling": {
+[ wasp 3] 
+[ wasp 1]  {
+[ wasp 1]   "app": {
+[ wasp 1]     "checkforupdates": true,
+[ wasp 1]     "shutdown": {
+[ wasp 1]       "log": {
+[ wasp 1]         "enabled": true,
+[ wasp 1]         "filepath": "shutdown.log"
+[ wasp 1]       },
+[ wasp 1]       "stopgraceperiod": "5m"
+[ wasp 1]     }
+[ wasp 1]   },
+[ wasp 1]   "cache": {
+[ wasp 1]     "cachesize": "64MiB",
+[ wasp 1]     "cachestatsinterval": 30000000000,
+[ wasp 1]     "enabled": true
+[ wasp 1]   },
+[ wasp 1]   "chains": {
+[ wasp 1]     "apicachettl": "5m",
+[ wasp 1]     "awaitreceiptcleanupevery": 100,
+[ wasp 1]     "broadcastinterval": "5s",
+[ wasp 1]     "broadcastuptonpeers": 2,
+[ wasp 1]     "consensusdelay": "50ms",
+[ wasp 1] [ wasp 0] Parameters loaded: 
+[ wasp 0]  {
+[ wasp 0]   "app": {
+[ wasp 0]     "checkforupdates": true,    "bindaddress": "0.0.0.0:11063",
+
+[ wasp 0]     "shutdown": {
+    "consensusinstsinadvance": 3,
+[ wasp 1] [ wasp 0]       "log": {
+[ wasp 0]         "enabled": true,
+[ wasp 0] [ wasp 3]     "enabled": false        "filepath": "shutdown.log"
+[ wasp 0]       },
+[ wasp 0]       "stopgraceperiod": "5m"
+[ wasp 0]     }
+[ wasp 0]   },
+[ wasp 0]   "cache": {
+[ wasp 0]     "cachesize": "64MiB",
+[ wasp 0]     "cachestatsinterval": 30000000000,
+[ wasp 0]     "enabled": true
+[ wasp 0]   },
+[ wasp 0]   "chains": {
+[ wasp 0]     "derivealiasoutputbyquorum": true,
+[ wasp 1]     "mempoolmaxoffledgerinpool": 2000,
+    "apicachettl": "5m",
+[ wasp 0]     "awaitreceiptcleanupevery": 100,
+[ wasp 0]     "broadcastinterval": "5s",
+[ wasp 0]     "broadcastuptonpeers": 2,
+[ wasp 0]     "consensusdelay": "50ms",
+[ wasp 0]     "consensusinstsinadvance": 3,
+[ wasp 0]     "derivealiasoutputbyquorum": true,
+[ wasp 0]     "mempoolmaxoffledgerinpool": 2000,
+[ wasp 0]     "mempoolmaxoffledgertopropose": 500,
+[ wasp 0] [ wasp 1]     "mempoolmaxoffledgertopropose": 500,
+[ wasp 1]     "mempoolmaxonledgerinpool": 1000,    "mempoolmaxonledgerinpool": 1000,
+[ wasp 0]     "mempoolmaxonledgertopropose": 100,
+
+[ wasp 1]     "mempoolmaxonledgertopropose": 100,
+[ wasp 1]     "mempoolmaxtimedinpool": 100,
+Parameters loaded: 
+[ wasp 2]  {
+[ wasp 2]   "app": {
+
+[ wasp 3]   },
+[ wasp 3]   "profilingrecorder": {
+[ wasp 3]     "enabled": false
+[ wasp 3]   },
+[ wasp 2] [ wasp 3]   "prometheus": {
+[ wasp 3]     "bindaddress": "0.0.0.0:12115",
+[ wasp 0]     "mempoolmaxtimedinpool": 100,
+[ wasp 0]     "mempoolonledgerrefreshmininterval": 600000000000,
+[ wasp 0]     "mempoolttl": 86400000000000,
+[ wasp 0]     "pipelininglimit": -1,
+[ wasp 0]     "postponerecoverymilestones": 3,
+[ wasp 3]     "enabled": true
+[ wasp 3]   },
+[ wasp 3]   "registries": {
+[ wasp 3] [ wasp 0]     "printstatusperiod": 3000000000,
+[ wasp 1]     "checkforupdates": true,
+[ wasp 2]     "shutdown": {
+[ wasp 2]       "log": {
+[ wasp 2]         "enabled": true,
+[ wasp 2]         "filepath": "shutdown.log"
+[ wasp 2]       },
+    "chains": {
+[ wasp 3]       "filepath": "waspdb/chains/chain_registry.json"
+[ wasp 3]     },
+    "mempoolonledgerrefreshmininterval": 600000000000,
+[ wasp 1]     "mempoolttl": 86400000000000,
+[ wasp 1]     "pipelininglimit": -1,
+[ wasp 1]     "postponerecoverymilestones": 3,
+[ wasp 1]     "printstatusperiod": 3000000000,
+[ wasp 1]     "pullmissingrequestsfromcommittee": true,
+[ wasp 1]     "recoverytimeout": 20000000000,
+[ wasp 1]     "redeliveryperiod": 2000000000
+[ wasp 1] [ wasp 3]     "consensusstate": {
+[ wasp 3]       "path": "waspdb/chains/consensus"
+[ wasp 0]     "pullmissingrequestsfromcommittee": true,
+[ wasp 0]     "recoverytimeout": 20000000000,
+[ wasp 0]     "redeliveryperiod": 2000000000
+[ wasp 0]   },
+[ wasp 0]   "db": {
+[ wasp 0]     "chainstate": {
+[ wasp 0]       "cachesize": 33554432,
+  },
+[ wasp 0]       "path": "waspdb/chains/data"
+[ wasp 0]     },
+[ wasp 0]     "debugskiphealthcheck": true,
+[ wasp 0]     "engine": "rocksdb"
+[ wasp 0]   },
+[ wasp 0]   "debugrequestloggerenabled": true,
+[ wasp 0] [ wasp 1]   "db": {
+[ wasp 1]     "chainstate": {
+[ wasp 1]   "l1": {
+[ wasp 0]     "httpurl": "https://api.iota-rebased-alphanet.iota.cafe",
+[ wasp 0]     "maxconnectionattempts": 30,
+[ wasp 0]     "packageid": "0xecba277948e487795b041b4a035b2a9b5d50ef78979901b8ecc7424f9258790a",
+[ wasp 0]     "targetnetworkname": "IOTA",
+[ wasp 0]     "websocketurl": "wss://api.iota-rebased-alphanet.iota.cafe"
+[ wasp 3]     },
+[ wasp 3]     "dkshares": {
+[ wasp 3]       "path": "waspdb/dkshares"
+[ wasp 3]     },
+[ wasp 3]     "trustedpeers": {      "cachesize": 33554432,
+[ wasp 1]       "path": "waspdb/chains/data"
+[ wasp 1]     },
+[ wasp 1]     "debugskiphealthcheck": true,
+[ wasp 1]     "engine": "rocksdb"
+[ wasp 1] 
+[ wasp 3]   },
+[ wasp 1]   "debugrequestloggerenabled": true,
+      "filepath": "waspdb/trusted_peers.json"
+[ wasp 3]     }[ wasp 1]   "l1": {
+[ wasp 2]       "stopgraceperiod": "5m"[ wasp 1]     "httpurl": "https://api.iota-rebased-alphanet.iota.cafe",
+[ wasp 1]     "maxconnectionattempts": 30,
+[ wasp 1]     "packageid": "0xecba277948e487795b041b4a035b2a9b5d50ef78979901b8ecc7424f9258790a",
+[ wasp 1]     "targetnetworkname": "IOTA",
+[ wasp 1]     "websocketurl": "wss://api.iota-rebased-alphanet.iota.cafe"
+[ wasp 1]   },
+[ wasp 1]   "logger": {
+[ wasp 1]     "disablecaller": true,
+[ wasp 1]     "disableevents": true,
+[ wasp 1]     "disablestacktrace": false,
+[ wasp 1]     "encoding": "console",
+[ wasp 1]     "encodingconfig": {
+[ wasp 1]       "timeencoder": "rfc3339nano"
+[ wasp 1]     },
+[ wasp 1]     "level": "debug",
+[ wasp 1]     "outputpaths": [
+[ wasp 1]       "stdout",
+[ wasp 1]       "wasp.log"
+[ wasp 1]     ],
+[ wasp 1]     "stacktracelevel": "panic"
+[ wasp 1]   },
+[ wasp 1] 
+[ wasp 2]     }
+[ wasp 2]   },
+[ wasp 2]   "cache": {
+[ wasp 2]     "cachesize": "64MiB",
+[ wasp 2]     "cachestatsinterval": 30000000000,
+[ wasp 2]     "enabled": true
+[ wasp 2]   },
+[ wasp 2]   "chains": {
+[ wasp 2]     "apicachettl": "5m",
+[ wasp 2]     "awaitreceiptcleanupevery": 100,
+[ wasp 2]     "broadcastinterval": "5s",[ wasp 0]   },
+[ wasp 0]   "logger": {
+[ wasp 0]     "disablecaller": true,
+[ wasp 0]     "disableevents": true,
+[ wasp 0]     "disablestacktrace": false,
+[ wasp 0]     "encoding": "console",
+
+[ wasp 2]     "broadcastuptonpeers": 2,
+[ wasp 2]     "consensusdelay": "50ms",
+[ wasp 2]     "consensusinstsinadvance": 3,
+[ wasp 2] [ wasp 0]     "encodingconfig": {
+[ wasp 0]       "timeencoder": "rfc3339nano"
+[ wasp 0]     },
+[ wasp 0]     "level": "debug",
+[ wasp 0] 
+[ wasp 3]   },
+[ wasp 3]   "snapshots": {
+[ wasp 3]     "delay": 20,
+[ wasp 3]     "localpath": "waspdb/snap",
+[ wasp 3]     "networkpaths": [],
+[ wasp 3]     "period": 0,
+[ wasp 3]     "snapshotstoload": []
+[ wasp 3]   },
+[ wasp 3]   "statemanager": {
+[ wasp 3]     "blockcacheblockcleaningperiod": "1m",  "p2p": {
+[ wasp 1]     "db": {
+[ wasp 1]       "path": "waspdb/p2pstore"
+[ wasp 1]     },
+[ wasp 1]     "identity": {
+[ wasp 1]       "filepath": "waspdb/identity/identity.key"
+[ wasp 1]     }
+[ wasp 1]   },    "derivealiasoutputbyquorum": true,
+[ wasp 2]     "mempoolmaxoffledgerinpool": 2000,
+[ wasp 2]     "mempoolmaxoffledgertopropose": 500,
+[ wasp 2]     "mempoolmaxonledgerinpool": 1000,
+[ wasp 2]     "mempoolmaxonledgertopropose": 100,
+[ wasp 2]     "mempoolmaxtimedinpool": 100,
+[ wasp 2]     "mempoolonledgerrefreshmininterval": 600000000000,
+[ wasp 2]     "mempoolttl": 86400000000000,
+[ wasp 3]     "blockcacheblocksincacheduration": "1h",
+[ wasp 3]     "blockcachemaxsize": 1000,
+[ wasp 3]     "pruningmaxstatestodelete": 1000,
+[ wasp 3]     "pruningminstatestokeep": 10000,
+[ wasp 3]     "statemanagergetblocknodecount": 5,
+[ wasp 3]     "statemanagergetblockretry": "3s",
+[ wasp 3]     "statemanagerrequestcleaningperiod": "1s",
+[ wasp 3]     "statemanagerstatuslogperiod": 60000000000,
+
+[ wasp 1]   "peering": {
+[ wasp 1]     "peeringurl": "localhost:14001",[ wasp 3]     "statemanagertimertickperiod": "1s"
+[ wasp 3]   },
+[ wasp 3]   "validator": {
+[ wasp 3]     "address": "0xf165e41b94fa31b10a906a3f9a83a732277c7813d0f83cda8e7d19efa5b5bd3a"
+
+[ wasp 1]     "port": 14001
+[ wasp 1]   },
+[ wasp 1]   "profiling": {
+[ wasp 1]     "bindaddress": "0.0.0.0:11061",
+[ wasp 1]     "enabled": false
+[ wasp 1]   },
+[ wasp 1]   "profilingrecorder": {
+    "outputpaths": [
+[ wasp 0]       "stdout",
+[ wasp 0]       "wasp.log"
+[ wasp 0]     ],
+[ wasp 0]     "stacktracelevel": "panic"
+[ wasp 0]   },
+[ wasp 0]   "p2p": {
+[ wasp 0]     "db": {
+[ wasp 0]       "path": "waspdb/p2pstore"[ wasp 3] [ wasp 1]     "enabled": false
+[ wasp 1]   },
+[ wasp 3]   "wal": {
+
+[ wasp 0]     },
+[ wasp 0]     "identity": {
+
+[ wasp 2]     "pipelininglimit": -1,
+[ wasp 2]     "postponerecoverymilestones": 3,
+[ wasp 2]     "printstatusperiod": 3000000000,
+[ wasp 2]     "pullmissingrequestsfromcommittee": true,
+[ wasp 2] [ wasp 0]       "filepath": "waspdb/identity/identity.key"
+[ wasp 0]     }
+[ wasp 0]   },
+[ wasp 0]   "peering": {
+[ wasp 0]     "peeringurl": "localhost:14000",
+[ wasp 0]     "port": 14000
+[ wasp 0]   },
+[ wasp 0]   "profiling": {
+[ wasp 0] [ wasp 3]     "enabled": true,
+[ wasp 3]     "loadtostore": false,
+[ wasp 3]     "bindaddress": "0.0.0.0:11060",
+[ wasp 0]     "enabled": false
+[ wasp 0]   },
+[ wasp 0]   "profilingrecorder": {
+[ wasp 0]     "enabled": false
+[ wasp 0]   },
+[ wasp 0]   "prometheus": {
+[ wasp 0]     "bindaddress": "0.0.0.0:12112",
+[ wasp 0]   },
+    "enabled": true
+[ wasp 0]   },    "recoverytimeout": 20000000000,
+[ wasp 2]     "redeliveryperiod": 2000000000
+[ wasp 2]   },
+[ wasp 2]   "db": {
+[ wasp 2]     "chainstate": {
+[ wasp 2]       "cachesize": 33554432,
+[ wasp 2]       "path": "waspdb/chains/data"
+[ wasp 2]     },
+[ wasp 2]     "debugskiphealthcheck": true,
+[ wasp 2]     "engine": "rocksdb"
+[ wasp 2]   },
+[ wasp 2]   "debugrequestloggerenabled": true,
+[ wasp 2] [ wasp 1]   "prometheus": {
+[ wasp 1] 
+[ wasp 0]   "registries": {
+[ wasp 0]     "path": "waspdb/wal"
+[ wasp 3]   },
+  "l1": {
+[ wasp 2]     "httpurl": "https://api.iota-rebased-alphanet.iota.cafe",
+[ wasp 2]     "maxconnectionattempts": 30,
+[ wasp 2]     "packageid": "0xecba277948e487795b041b4a035b2a9b5d50ef78979901b8ecc7424f9258790a",
+[ wasp 2]     "targetnetworkname": "IOTA",
+[ wasp 2]     "websocketurl": "wss://api.iota-rebased-alphanet.iota.cafe"    "bindaddress": "0.0.0.0:12113",
+[ wasp 1]     "enabled": true
+[ wasp 1]   },
+[ wasp 1]   "registries": {
+[ wasp 1]     "chains": {
+[ wasp 1]       "filepath": "waspdb/chains/chain_registry.json"
+[ wasp 1]     },
+[ wasp 1]     "consensusstate": {
+[ wasp 1]       "path": "waspdb/chains/consensus"
+[ wasp 1]     },
+[ wasp 1]     "dkshares": {
+[ wasp 1]       "path": "waspdb/dkshares"
+[ wasp 1]     },
+[ wasp 1]     "trustedpeers": {
+[ wasp 1]       "filepath": "waspdb/trusted_peers.json"
+[ wasp 1]     }
+[ wasp 1]   },
+[ wasp 1]   "snapshots": {
+[ wasp 1]     "delay": 20,
+[ wasp 1]     "localpath": "waspdb/snap",
+[ wasp 1]     "networkpaths": [],
+[ wasp 1]     "period": 0,
+[ wasp 1]     "snapshotstoload": []
+[ wasp 1]   },
+[ wasp 1]   "statemanager": {
+[ wasp 1]     "blockcacheblockcleaningperiod": "1m",
+[ wasp 1]     "blockcacheblocksincacheduration": "1h",
+[ wasp 1]     "blockcachemaxsize": 1000,
+[ wasp 1]     "pruningmaxstatestodelete": 1000,
+[ wasp 1]     "pruningminstatestokeep": 10000,
+[ wasp 1]     "statemanagergetblocknodecount": 5,
+[ wasp 1]     "statemanagergetblockretry": "3s",
+[ wasp 1]     "statemanagerrequestcleaningperiod": "1s",
+[ wasp 1]     "statemanagerstatuslogperiod": 60000000000,
+[ wasp 1]     "statemanagertimertickperiod": "1s"    "chains": {
+[ wasp 0]       "filepath": "waspdb/chains/chain_registry.json"
+[ wasp 2]   },
+[ wasp 2]   "logger": {
+[ wasp 2]     "disablecaller": true,
+[ wasp 2]     "disableevents": true,
+[ wasp 2]     "disablestacktrace": false,
+[ wasp 2]     "encoding": "console",
+[ wasp 2]     "encodingconfig": {
+[ wasp 2]       "timeencoder": "rfc3339nano"
+[ wasp 2]     },
+[ wasp 2]     "level": "debug",
+[ wasp 2]     "outputpaths": [
+[ wasp 2]       "stdout",
+[ wasp 2]       "wasp.log"
+[ wasp 2]     ],[ wasp 3]   "webapi": {
+[ wasp 3]     "accountdumpspath": "waspdb/account_dumps",
+[ wasp 3]     "auth": {
+
+[ wasp 2]     "stacktracelevel": "panic"
+[ wasp 2]   },
+[ wasp 2]   "p2p": {
+[ wasp 2]     "db": {
+[ wasp 2]       "path": "waspdb/p2pstore"
+[ wasp 2]     },
+[ wasp 2]     "identity": {
+[ wasp 2]       "filepath": "waspdb/identity/identity.key"
+[ wasp 2]     }
+[ wasp 2]   },
+[ wasp 0]     },
+[ wasp 0]     "consensusstate": {
+[ wasp 0] [ wasp 3]       "jwt": {
+[ wasp 3]         "duration": "24h"
+[ wasp 3]       },
+[ wasp 3]       "scheme": "none"
+[ wasp 3]     },
+[ wasp 3]     "bindaddress": "0.0.0.0:19093",
+[ wasp 3]     "debugrequestloggerenabled": false,
+[ wasp 3]     "enabled": true,
+[ wasp 3]     "indexdbpath": "waspdb/chains/index",
+[ wasp 3]     "limits": {
+[ wasp 3]       "confirmedstatelagthreshold": 2,
+[ wasp 3]       "jsonrpc": {
+[ wasp 3]         "maxblocksinlogsfilterrange": 1000,
+[ wasp 3]         "maxlogsinresult": 10000,
+[ wasp 3]         "websocketclientblockduration": 300000000000,
+[ wasp 3]         "websocketconnectioncleanupduration": 300000000000,
+[ wasp 3]         "websocketratelimitburst": 5,
+[ wasp 3]         "websocketratelimitmessagespersecond": 20
+[ wasp 3]       },
+[ wasp 3]       "maxbodylength": "2M",
+[ wasp 3]       "maxtopicsubscriptionsperclient": 0,
+[ wasp 3]       "readtimeout": "10s",
+[ wasp 3]       "timeout": "30s",
+[ wasp 3]       "writetimeout": "10s"
+[ wasp 3]     }
+[ wasp 3]   }
+[ wasp 3] }
+[ wasp 3] 
+[ wasp 3] The following components are enabled: 
+[ wasp 3]    - Cache
+[ wasp 3]    - Chains
+[ wasp 3]    - DKG
+[ wasp 3]    - Database
+[ wasp 3]    - Logger
+[ wasp 3]    - NodeConn
+[ wasp 3]    - Peering
+[ wasp 3]    - Processors
+[ wasp 3]    - Prometheus
+[ wasp 3]    - Publisher
+[ wasp 3]    - Registry
+[ wasp 3]    - Shutdown
+[ wasp 3]    - Users
+[ wasp 3]    - WebAPI
+[ wasp 3] 
+[ wasp 3] The following components are disabled: 
+[ wasp 3]    - Profiling
+[ wasp 3]    - profilingRecorder
+[ wasp 3] 
+[ wasp 3] 2025-03-07T18:19:25.727614+01:00	INFO	Registry	WARNING: never share your "waspdb/p2pstore" or "waspdb/identity" folder as both contain your node's private key!
+[ wasp 2]   "peering": {
+[ wasp 2]     "peeringurl": "localhost:14002",
+[ wasp 2]     "port": 14002
+[ wasp 2]   },
+[ wasp 2]   "profiling": {
+[ wasp 2]     "bindaddress": "0.0.0.0:11062",
+[ wasp 2]     "enabled": false
+[ wasp 2]   },
+[ wasp 2]   "profilingrecorder": {
+[ wasp 2] 
+    "enabled": false
+[ wasp 2]   },
+[ wasp 2]   "prometheus": {
+[ wasp 2]     "bindaddress": "0.0.0.0:12114",
+[ wasp 2]     "enabled": true
+[ wasp 2]   },
+[ wasp 2]   "registries": {
+[ wasp 2]     "chains": {
+[ wasp 2]       "filepath": "waspdb/chains/chain_registry.json"
+[ wasp 2]     },
+[ wasp 2]     "consensusstate": {
+[ wasp 2]       "path": "waspdb/chains/consensus"
+[ wasp 2]     },
+[ wasp 2]     "dkshares": {
+[ wasp 2]       "path": "waspdb/dkshares"
+[ wasp 2]     },
+[ wasp 2]     "trustedpeers": {
+[ wasp 2]       "filepath": "waspdb/trusted_peers.json"
+[ wasp 2]     }
+[ wasp 2]   },
+[ wasp 2]   "snapshots": {
+[ wasp 2]     "delay": 20,
+[ wasp 2]     "localpath": "waspdb/snap",
+[ wasp 2]     "networkpaths": [],
+[ wasp 2]     "period": 0,
+      "path": "waspdb/chains/consensus"
+[ wasp 0]     },
+[ wasp 0]     "dkshares": {
+[ wasp 0]       "path": "waspdb/dkshares"
+[ wasp 0]     },[ wasp 2]     "snapshotstoload": []
+[ wasp 2]   },
+
+[ wasp 1]   },
+[ wasp 2]   "statemanager": {
+[ wasp 2]     "blockcacheblockcleaningperiod": "1m",
+[ wasp 2]     "blockcacheblocksincacheduration": "1h",
+[ wasp 2]     "blockcachemaxsize": 1000,
+[ wasp 2]     "pruningmaxstatestodelete": 1000,
+[ wasp 2]     "pruningminstatestokeep": 10000,
+[ wasp 2] [ wasp 1]   "validator": {
+[ wasp 1]     "address": "0xc5a26fd26bbd0b95273412027812869f9393536ac08120c726b67f1934301fba"
+    "statemanagergetblocknodecount": 5,
+[ wasp 2]     "statemanagergetblockretry": "3s",
+[ wasp 2]     "statemanagerrequestcleaningperiod": "1s",
+[ wasp 2]     "statemanagerstatuslogperiod": 60000000000,
+[ wasp 2]     "statemanagertimertickperiod": "1s"
+[ wasp 2]   },
+[ wasp 2]   "validator": {
+[ wasp 2]     "address": "0xf833b0b23975ebb733028ba9d4df838d562201846c6280a46b1c88851b41e273"
+[ wasp 2]   },
+[ wasp 2]   "wal": {
+[ wasp 2]     "enabled": true,
+[ wasp 2]     "loadtostore": false,
+[ wasp 2]     "path": "waspdb/wal"
+[ wasp 2]   },
+[ wasp 2]   "webapi": {
+[ wasp 2]     "accountdumpspath": "waspdb/account_dumps",
+[ wasp 2]     "auth": {
+[ wasp 2]       "jwt": {
+[ wasp 2]         "duration": "24h"
+[ wasp 2]       },
+[ wasp 2]       "scheme": "none"
+[ wasp 2]     },
+[ wasp 2]     "bindaddress": "0.0.0.0:19092",
+[ wasp 2]     "debugrequestloggerenabled": false,
+[ wasp 2]     "enabled": true,
+[ wasp 2]     "indexdbpath": "waspdb/chains/index",
+[ wasp 2]     "limits": {
+[ wasp 2]       "confirmedstatelagthreshold": 2,
+[ wasp 2]       "jsonrpc": {
+[ wasp 2]         "maxblocksinlogsfilterrange": 1000,
+[ wasp 2]         "maxlogsinresult": 10000,
+[ wasp 2]         "websocketclientblockduration": 300000000000,
+[ wasp 2]         "websocketconnectioncleanupduration": 300000000000,
+[ wasp 2]         "websocketratelimitburst": 5,
+[ wasp 2]         "websocketratelimitmessagespersecond": 20
+[ wasp 2]       },
+[ wasp 2]       "maxbodylength": "2M",
+[ wasp 2]       "maxtopicsubscriptionsperclient": 0,
+[ wasp 2]       "readtimeout": "10s",
+[ wasp 2]       "timeout": "30s",
+[ wasp 2]       "writetimeout": "10s"
+[ wasp 2] [ wasp 1]   },
+
+[ wasp 0]     "trustedpeers": {
+[ wasp 0]       "filepath": "waspdb/trusted_peers.json"    }
+[ wasp 2]   }
+[ wasp 2] }
+[ wasp 2] 
+[ wasp 2] The following components are enabled: 
+[ wasp 2]    - Cache
+[ wasp 2]    - Chains
+[ wasp 2] 
+[ wasp 0]     }
+[ wasp 0]   },
+[ wasp 0]   "snapshots": {
+[ wasp 0]     "delay": 20,
+[ wasp 0]     "localpath": "waspdb/snap",
+[ wasp 0]     "networkpaths": [],
+[ wasp 0]    - DKG
+[ wasp 2]    - Database
+[ wasp 2]    - Logger
+[ wasp 2]     "period": 0,
+[ wasp 0]     "snapshotstoload": []
+   - NodeConn
+[ wasp 2] [ wasp 1]   "wal": {
+[ wasp 1]     "enabled": true,
+[ wasp 1] [ wasp 0]   },
+[ wasp 0]   "statemanager": {
+   - Peering
+[ wasp 0]     "blockcacheblockcleaningperiod": "1m",
+[ wasp 0]     "blockcacheblocksincacheduration": "1h",
+[ wasp 0]     "blockcachemaxsize": 1000,
+[ wasp 0]     "pruningmaxstatestodelete": 1000,
+[ wasp 0]     "pruningminstatestokeep": 10000,
+[ wasp 0]     "statemanagergetblocknodecount": 5,
+[ wasp 0]     "statemanagergetblockretry": "3s",
+[ wasp 0]     "statemanagerrequestcleaningperiod": "1s",
+[ wasp 0]     "statemanagerstatuslogperiod": 60000000000,
+[ wasp 0]     "statemanagertimertickperiod": "1s"
+[ wasp 0]   },
+[ wasp 0]   "validator": {
+[ wasp 0]     "address": "0xcec20670ce1c1d28a9bf0eeada0699b4ee47ccd65e5281bfd493d536b64aa820"
+[ wasp 0]   },
+[ wasp 0]   "wal": {
+[ wasp 0]     "enabled": true,
+[ wasp 0]     "loadtostore": false,
+[ wasp 1]     "path": "waspdb/wal"
+[ wasp 1]   },
+[ wasp 1]   "webapi": {
+[ wasp 1]     "accountdumpspath": "waspdb/account_dumps",
+[ wasp 1] [ wasp 2]    - Processors
+[ wasp 2]    - Prometheus
+[ wasp 2]    - Publisher
+[ wasp 2]    - Registry
+[ wasp 2]    - Shutdown
+[ wasp 2]    - Users
+[ wasp 2]    - WebAPI
+[ wasp 2] 
+    "auth": {
+[ wasp 1]       "jwt": {
+[ wasp 2] The following components are disabled: 
+[ wasp 2]    - Profiling
+[ wasp 2]    - profilingRecorder
+[ wasp 2] 
+[ wasp 2] 2025-03-07T18:19:25.727625+01:00	INFO	Registry	WARNING: never share your "waspdb/p2pstore" or "waspdb/identity" folder as both contain your node's private key!
+[ wasp 1]         "duration": "24h"
+[ wasp 1]       },
+    "loadtostore": false,
+[ wasp 0]     "path": "waspdb/wal"
+[ wasp 0]   },
+[ wasp 0]   "webapi": {
+[ wasp 0]     "accountdumpspath": "waspdb/account_dumps",
+[ wasp 0]     "auth": {
+[ wasp 0]       "jwt": {
+[ wasp 0]         "duration": "24h"
+[ wasp 0]       },
+[ wasp 0]       "scheme": "none"
+[ wasp 0]     },
+[ wasp 0]     "bindaddress": "0.0.0.0:19090",
+[ wasp 0]     "debugrequestloggerenabled": false,
+[ wasp 0]     "enabled": true,
+[ wasp 0]     "indexdbpath": "waspdb/chains/index",
+[ wasp 0]     "limits": {
+[ wasp 0]       "confirmedstatelagthreshold": 2,
+[ wasp 0]       "jsonrpc": {
+[ wasp 0]         "maxblocksinlogsfilterrange": 1000,
+[ wasp 0]         "maxlogsinresult": 10000,
+[ wasp 0]         "websocketclientblockduration": 300000000000,
+[ wasp 0]         "websocketconnectioncleanupduration": 300000000000,
+[ wasp 0]         "websocketratelimitburst": 5,
+[ wasp 1]       "scheme": "none"
+[ wasp 1] [ wasp 0]         "websocketratelimitmessagespersecond": 20
+[ wasp 0]       },
+[ wasp 0]       "maxbodylength": "2M",
+[ wasp 0]       "maxtopicsubscriptionsperclient": 0,
+[ wasp 0]       "readtimeout": "10s",
+[ wasp 0]       "timeout": "30s",
+[ wasp 0]       "writetimeout": "10s"
+[ wasp 0]     },
+[ wasp 1]     "bindaddress": "0.0.0.0:19091",
+[ wasp 1]     "debugrequestloggerenabled": false,
+[ wasp 1]     "enabled": true,
+[ wasp 1]     "indexdbpath": "waspdb/chains/index",
+[ wasp 1]     "limits": {
+[ wasp 1]       "confirmedstatelagthreshold": 2,
+[ wasp 1]       "jsonrpc": {
+[ wasp 1]     }
+[ wasp 0]   }
+[ wasp 0] }
+[ wasp 0] 
+[ wasp 0] The following components are enabled: 
+[ wasp 0]    - Cache
+[ wasp 0]    - Chains
+[ wasp 0]    - DKG
+[ wasp 0]    - Database
+[ wasp 0]    - Logger
+[ wasp 0]    - NodeConn
+[ wasp 0]    - Peering
+[ wasp 0]    - Processors
+[ wasp 0]    - Prometheus
+[ wasp 0]    - Publisher
+[ wasp 0]    - Registry
+[ wasp 0]    - Shutdown
+[ wasp 0]    - Users
+[ wasp 0]    - WebAPI
+[ wasp 0] 
+[ wasp 0] The following components are disabled: 
+[ wasp 0]    - Profiling
+[ wasp 0]    - profilingRecorder
+[ wasp 0] 
+[ wasp 0]         "maxblocksinlogsfilterrange": 1000,
+[ wasp 1]         "maxlogsinresult": 10000,
+[ wasp 1]         "websocketclientblockduration": 300000000000,
+[ wasp 1]         "websocketconnectioncleanupduration": 300000000000,
+[ wasp 1]         "websocketratelimitburst": 5,
+[ wasp 1]         "websocketratelimitmessagespersecond": 20
+[ wasp 1]       },
+[ wasp 1]       "maxbodylength": "2M",
+[ wasp 1]       "maxtopicsubscriptionsperclient": 0,
+[ wasp 1]       "readtimeout": "10s",
+[ wasp 1]       "timeout": "30s",
+[ wasp 1]       "writetimeout": "10s"
+[ wasp 1]     }
+[ wasp 1]   }
+[ wasp 1] }
+[ wasp 1] 
+[ wasp 1] 2025-03-07T18:19:25.727611+01:00	INFO	Registry	WARNING: never share your "waspdb/p2pstore" or "waspdb/identity" folder as both contain your node's private key!
+The following components are enabled: 
+[ wasp 1]    - Cache
+[ wasp 1]    - Chains
+[ wasp 1]    - DKG
+[ wasp 1]    - Database
+[ wasp 1]    - Logger
+[ wasp 1]    - NodeConn
+[ wasp 1]    - Peering
+[ wasp 1]    - Processors
+[ wasp 1]    - Prometheus
+[ wasp 1]    - Publisher
+[ wasp 1]    - Registry
+[ wasp 1]    - Shutdown
+[ wasp 1]    - Users
+[ wasp 1]    - WebAPI
+[ wasp 1] 
+[ wasp 1] The following components are disabled: 
+[ wasp 1]    - Profiling
+[ wasp 1]    - profilingRecorder
+[ wasp 1] 
+[ wasp 1] 2025-03-07T18:19:25.727611+01:00	INFO	Registry	WARNING: never share your "waspdb/p2pstore" or "waspdb/identity" folder as both contain your node's private key!
+[ wasp 0] [ wasp 3] [ wasp 2] 2025-03-07T18:19:25.729443+01:00	INFO	Registry	stored new private key for peer identity under "waspdb/identity/identity.key"
+[ wasp 2] 2025-03-07T18:19:25.729458+01:00	INFO	Registry	this node identity: 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666
+2025-03-07T18:19:25.729431+01:00	INFO	Registry	stored new private key for peer identity under "waspdb/identity/identity.key"
+[ wasp 3] 2025-03-07T18:19:25.72946+01:00	INFO	Registry	this node identity: 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf
+2025-03-07T18:19:25.729436+01:00	INFO	Registry	stored new private key for peer identity under "waspdb/identity/identity.key"
+[ wasp 0] 2025-03-07T18:19:25.729464+01:00	INFO	Registry	this node identity: 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767
+[ wasp 1] 2025-03-07T18:19:25.729565+01:00	INFO	Registry	stored new private key for peer identity under "waspdb/identity/identity.key"
+[ wasp 1] 2025-03-07T18:19:25.729616+01:00	INFO	Registry	this node identity: 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09
+[ wasp 3] 2025-03-07T18:19:25.737178+01:00	INFO	Peering	Adding this node as trusted for itself, name=me, pubKey=0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf, peeringURL=localhost:14003
+[ wasp 1] 2025-03-07T18:19:25.737413+01:00	INFO	Peering	Adding this node as trusted for itself, name=me, pubKey=0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09, peeringURL=localhost:14001
+[ wasp 0] 2025-03-07T18:19:25.737625+01:00	INFO	Peering	Adding this node as trusted for itself, name=me, pubKey=0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767, peeringURL=localhost:14000
+[ wasp 2] 2025-03-07T18:19:25.737842+01:00	INFO	Peering	Adding this node as trusted for itself, name=me, pubKey=0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666, peeringURL=localhost:14002
+[ wasp 3] 2025-03-07T18:19:25.744157+01:00	INFO	Peering	Registering localhost:14003 as libp2p PeerID=12D3KooWLnoQtniPai4PoL6qxMhwHUr1veeYJUVpBZewVtS15CrS with addresses: [/dns/localhost/udp/14003/quic /dns/localhost/tcp/14003]
+[ wasp 3] 2025-03-07T18:19:25.745518+01:00	INFO	Peering	------------- PeeringURL = localhost:14003, PubKey = 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf ------------------
+[ wasp 1] 2025-03-07T18:19:25.749195+01:00	INFO	Peering	Registering localhost:14001 as libp2p PeerID=12D3KooWNYpL4hSz94UwXyHoLygQAVDeZ6tv3ek7AMS8efh4tr9n with addresses: [/dns/localhost/udp/14001/quic /dns/localhost/tcp/14001]
+[ wasp 0] 2025-03-07T18:19:25.755109+01:00	INFO	Peering	Registering localhost:14000 as libp2p PeerID=12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc with addresses: [/dns/localhost/udp/14000/quic /dns/localhost/tcp/14000]
+[ wasp 1] 2025-03-07T18:19:25.763433+01:00	INFO	Peering	------------- PeeringURL = localhost:14001, PubKey = 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 ------------------
+[ wasp 0] 2025-03-07T18:19:25.763464+01:00	INFO	Peering	------------- PeeringURL = localhost:14000, PubKey = 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 ------------------
+[ wasp 2] 2025-03-07T18:19:25.764872+01:00	INFO	Peering	Registering localhost:14002 as libp2p PeerID=12D3KooWHPoAuSpGjRacMhtV2McymZX3faEXTfsCUVDhHSdQdySD with addresses: [/dns/localhost/udp/14002/quic /dns/localhost/tcp/14002]
+[ wasp 2] 2025-03-07T18:19:25.764934+01:00	INFO	Peering	------------- PeeringURL = localhost:14002, PubKey = 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 ------------------
+[ wasp 2] 2025-03-07T18:19:25.768741+01:00	INFO	App	Loading components ...
+[ wasp 2] 2025-03-07T18:19:25.768778+01:00	INFO	App	Loading components: Shutdown ... done
+[ wasp 2] 2025-03-07T18:19:25.76879+01:00	INFO	App	Loading components: NodeConn ... done
+[ wasp 2] 2025-03-07T18:19:25.768795+01:00	INFO	App	Loading components: Users ... done
+[ wasp 2] 2025-03-07T18:19:25.768802+01:00	INFO	App	Loading components: Logger ... done
+[ wasp 2] 2025-03-07T18:19:25.768809+01:00	INFO	App	Loading components: Cache ... done
+[ wasp 2] 2025-03-07T18:19:25.769015+01:00	INFO	App	Loading components: Database ... done
+[ wasp 2] 2025-03-07T18:19:25.769027+01:00	INFO	App	Loading components: Registry ... done
+[ wasp 2] 2025-03-07T18:19:25.769033+01:00	INFO	App	Loading components: Peering ... done
+[ wasp 2] 2025-03-07T18:19:25.769037+01:00	INFO	App	Loading components: DKG ... done
+[ wasp 2] 2025-03-07T18:19:25.769042+01:00	INFO	App	Loading components: Processors ... done
+[ wasp 2] 2025-03-07T18:19:25.769047+01:00	INFO	App	Loading components: Chains ... done
+[ wasp 2] 2025-03-07T18:19:25.769051+01:00	INFO	App	Loading components: Publisher ... done
+[ wasp 2] 2025-03-07T18:19:25.769056+01:00	INFO	App	Loading components: WebAPI ... done
+[ wasp 2] 2025-03-07T18:19:25.769245+01:00	INFO	App	Loading components: Prometheus ... done
+[ wasp 1] 2025-03-07T18:19:25.769319+01:00	INFO	App	Loading components ...
+[ wasp 1] 2025-03-07T18:19:25.769339+01:00	INFO	App	Loading components: Shutdown ... done
+[ wasp 1] 2025-03-07T18:19:25.769348+01:00	INFO	App	Loading components: NodeConn ... done
+[ wasp 1] 2025-03-07T18:19:25.769353+01:00	INFO	App	Loading components: Users ... done
+[ wasp 1] 2025-03-07T18:19:25.769359+01:00	INFO	App	Loading components: Logger ... done
+[ wasp 1] 2025-03-07T18:19:25.769364+01:00	INFO	App	Loading components: Cache ... done
+[ wasp 1] 2025-03-07T18:19:25.76937+01:00	INFO	App	Loading components: Database ... done
+[ wasp 1] 2025-03-07T18:19:25.769376+01:00	INFO	App	Loading components: Registry ... done
+[ wasp 1] 2025-03-07T18:19:25.769381+01:00	INFO	App	Loading components: Peering ... done
+[ wasp 1] 2025-03-07T18:19:25.769387+01:00	INFO	App	Loading components: DKG ... done
+[ wasp 1] 2025-03-07T18:19:25.769391+01:00	INFO	App	Loading components: Processors ... done
+[ wasp 1] 2025-03-07T18:19:25.769395+01:00	INFO	App	Loading components: Chains ... done
+[ wasp 1] 2025-03-07T18:19:25.7694+01:00	INFO	App	Loading components: Publisher ... done
+[ wasp 1] 2025-03-07T18:19:25.769405+01:00	INFO	App	Loading components: WebAPI ... done
+[ wasp 3] 2025-03-07T18:19:25.769442+01:00	INFO	App	Loading components ...
+[ wasp 3] 2025-03-07T18:19:25.769462+01:00	INFO	App	Loading components: Shutdown ... done
+[ wasp 3] 2025-03-07T18:19:25.76947+01:00	INFO	App	Loading components: NodeConn ... done
+[ wasp 3] 2025-03-07T18:19:25.769476+01:00	INFO	App	Loading components: Users ... done
+[ wasp 3] 2025-03-07T18:19:25.769482+01:00	INFO	App	Loading components: Logger ... done
+[ wasp 3] 2025-03-07T18:19:25.769488+01:00	INFO	App	Loading components: Cache ... done
+[ wasp 3] 2025-03-07T18:19:25.769495+01:00	INFO	App	Loading components: Database ... done
+[ wasp 3] 2025-03-07T18:19:25.7695+01:00	INFO	App	Loading components: Registry ... done
+[ wasp 3] 2025-03-07T18:19:25.769506+01:00	INFO	App	Loading components: Peering ... done
+[ wasp 3] 2025-03-07T18:19:25.769511+01:00	INFO	App	Loading components: DKG ... done
+[ wasp 3] 2025-03-07T18:19:25.769517+01:00	INFO	App	Loading components: Processors ... done
+[ wasp 3] 2025-03-07T18:19:25.769523+01:00	INFO	App	Loading components: Chains ... done
+[ wasp 3] 2025-03-07T18:19:25.769527+01:00	INFO	App	Loading components: Publisher ... done
+[ wasp 3] 2025-03-07T18:19:25.769532+01:00	INFO	App	Loading components: WebAPI ... done
+[ wasp 0] 2025-03-07T18:19:25.769576+01:00	INFO	App	Loading components ...
+[ wasp 0] 2025-03-07T18:19:25.769592+01:00	INFO	App	Loading components: Shutdown ... done
+[ wasp 0] 2025-03-07T18:19:25.769599+01:00	INFO	App	Loading components: NodeConn ... done
+[ wasp 0] 2025-03-07T18:19:25.769604+01:00	INFO	App	Loading components: Users ... done
+[ wasp 0] 2025-03-07T18:19:25.769612+01:00	INFO	App	Loading components: Logger ... done
+[ wasp 1] 2025-03-07T18:19:25.769577+01:00	INFO	App	Loading components: Prometheus ... done
+[ wasp 0] 2025-03-07T18:19:25.769636+01:00	INFO	App	Loading components: Cache ... done
+[ wasp 0] 2025-03-07T18:19:25.76965+01:00	INFO	App	Loading components: Database ... done
+[ wasp 0] 2025-03-07T18:19:25.769659+01:00	INFO	App	Loading components: Registry ... done
+[ wasp 0] 2025-03-07T18:19:25.769668+01:00	INFO	App	Loading components: Peering ... done
+[ wasp 0] 2025-03-07T18:19:25.769674+01:00	INFO	App	Loading components: DKG ... done
+[ wasp 0] 2025-03-07T18:19:25.769682+01:00	INFO	App	Loading components: Processors ... done
+[ wasp 0] 2025-03-07T18:19:25.769687+01:00	INFO	App	Loading components: Chains ... done
+[ wasp 0] 2025-03-07T18:19:25.769691+01:00	INFO	App	Loading components: Publisher ... done
+[ wasp 0] 2025-03-07T18:19:25.769696+01:00	INFO	App	Loading components: WebAPI ... done
+[ wasp 3] 2025-03-07T18:19:25.769712+01:00	INFO	App	Loading components: Prometheus ... done
+[ wasp 0] 2025-03-07T18:19:25.769972+01:00	INFO	App	Loading components: Prometheus ... done
+[ wasp 1] 2025-03-07T18:19:25.994616+01:00	INFO	App	Update to wasp 1.6.0-alpha.4 available on https://github.com/iotaledger/wasp/releases/latest
+[ wasp 1] 2025-03-07T18:19:25.994672+01:00	INFO	App	Executing components ...
+[ wasp 1] 2025-03-07T18:19:25.994693+01:00	INFO	App	Starting component: Shutdown ...
+[ wasp 1] 2025-03-07T18:19:25.994721+01:00	INFO	App	Starting component: NodeConn ...
+[ wasp 0] 2025-03-07T18:19:25.993424+01:00	INFO	App	Update to wasp 1.6.0-alpha.4 available on https://github.com/iotaledger/wasp/releases/latest
+[ wasp 0] 2025-03-07T18:19:25.993589+01:00	INFO	App	Executing components ...
+[ wasp 0] 2025-03-07T18:19:25.993618+01:00	INFO	App	Starting component: Shutdown ...
+[ wasp 0] 2025-03-07T18:19:25.993682+01:00	INFO	App	Starting component: NodeConn ...
+[ wasp 0] 2025-03-07T18:19:25.993719+01:00	INFO	App	Starting component: Users ...
+[ wasp 0] 2025-03-07T18:19:25.993742+01:00	INFO	App	Starting component: Logger ...
+[ wasp 0] [ wasp 1] 2025-03-07T18:19:25.9948+01:00	INFO	App	Starting component: Users ...
+[ wasp 3] 2025-03-07T18:19:25.993739+01:00	INFO	App	Update to wasp 1.6.0-alpha.4 available on https://github.com/iotaledger/wasp/releases/latest
+[ wasp 3] 2025-03-07T18:19:25.99379+01:00	INFO	App	Executing components ...
+[ wasp 3] 2025-03-07T18:19:25.993811+01:00	INFO	App	Starting component: Shutdown ...
+[ wasp 3] 2025-03-07T18:19:25.993848+01:00	INFO	App	Starting component: NodeConn ...
+[ wasp 3] 2025-03-07T18:19:25.993888+01:00	INFO	App	Starting component: Users ...
+[ wasp 3] 2025-03-07T18:19:25.993912+01:00	INFO	App	Starting component: Logger ...
+[ wasp 3] 2025-03-07T18:19:25.993932+01:00	INFO	App	Starting component: Cache ...
+[ wasp 3] 2025-03-07T18:19:25.993961+01:00	INFO	App	Starting component: Database ...
+[ wasp 3] 2025-03-07T18:19:25.99398+01:00	INFO	App	Starting component: Registry ...
+[ wasp 3] 2025-03-07T18:19:25.994002+01:00	INFO	App	Starting component: Peering ...
+[ wasp 3] 2025-03-07T18:19:25.994026+01:00	INFO	App	Starting component: DKG ...
+[ wasp 3] 2025-03-07T18:19:25.994048+01:00	INFO	App	Starting component: Processors ...
+[ wasp 3] 2025-03-07T18:19:25.994065+01:00	INFO	App	Starting component: Chains ...
+[ wasp 3] 2025-03-07T18:19:25.994088+01:00	INFO	App	Starting component: Publisher ...
+[ wasp 3] 2025-03-07T18:19:25.994109+01:00	INFO	App	Starting component: WebAPI ...
+[ wasp 3] 2025-03-07T18:19:25.994136+01:00	INFO	WebAPI	Starting WebAPI server ...
+[ wasp 3] 2025-03-07T18:19:25.99416+01:00	INFO	App	Starting component: Prometheus ...
+[ wasp 3] 2025-03-07T18:19:25.994178+01:00	INFO	Prometheus	Starting Prometheus exporter ...
+[ wasp 3] 2025-03-07T18:19:25.994197+01:00	INFO	App	Starting background workers ...
+[ wasp 3] 2025-03-07T18:19:25.994373+01:00	INFO	NodeConn	Starting NodeConn ... done
+[ wasp 3] 2025-03-07T18:19:25.994422+01:00	INFO	Cache	Started cache statistics ticker
+[ wasp 3] 2025-03-07T18:19:25.994473+01:00	INFO	Prometheus	Starting Prometheus exporter ... done
+[ wasp 3] 2025-03-07T18:19:25.994507+01:00	INFO	Prometheus	You can now access the Prometheus exporter using: http://0.0.0.0:12115/metrics
+[ wasp 3] ⇨ http server started on [::]:12115
+[ wasp 3] 2025-03-07T18:19:25.99463+01:00	INFO	WebAPI	Starting WebAPI server ...
+[ wasp 2] 2025-03-07T18:19:25.993495+01:00	INFO	App	Update to wasp 1.6.0-alpha.4 available on https://github.com/iotaledger/wasp/releases/latest
+[ wasp 2] 2025-03-07T18:19:25.993589+01:00	INFO	App	Executing components ...
+[ wasp 2] 2025-03-07T18:19:25.993622+01:00	INFO	App	Starting component: Shutdown ...
+[ wasp 2] 2025-03-07T18:19:25.993668+01:00	INFO	App	Starting component: NodeConn ...
+[ wasp 2] 2025-03-07T18:19:25.993695+01:00	INFO	App	Starting component: Users ...
+[ wasp 2] 2025-03-07T18:19:25.993715+01:00	INFO	App	Starting component: Logger ...
+[ wasp 2] 2025-03-07T18:19:25.993734+01:00	INFO	App	Starting component: Cache ...
+[ wasp 2] 2025-03-07T18:19:25.993765+01:00	INFO	App	Starting component: Database ...
+[ wasp 2] 2025-03-07T18:19:25.993789+01:00	INFO	App	Starting component: Registry ...
+[ wasp 2] 2025-03-07T18:19:25.993808+01:00	INFO	App	Starting component: Peering ...
+[ wasp 2] 2025-03-07T18:19:25.993833+01:00	INFO	App	Starting component: DKG ...
+[ wasp 2] 2025-03-07T18:19:25.993855+01:00	INFO	App	Starting component: Processors ...
+[ wasp 2] 2025-03-07T18:19:25.993876+01:00	INFO	App	Starting component: Chains ...
+[ wasp 2] 2025-03-07T18:19:25.993897+01:00	INFO	App	Starting component: Publisher ...
+[ wasp 2] 2025-03-07T18:19:25.993919+01:00	INFO	App	Starting component: WebAPI ...
+[ wasp 2] 2025-03-07T18:19:25.993944+01:00	INFO	WebAPI	Starting WebAPI server ...
+[ wasp 2] 2025-03-07T18:19:25.993969+01:00	INFO	App	Starting component: Prometheus ...
+[ wasp 2] 2025-03-07T18:19:25.993991+01:00	INFO	Prometheus	Starting Prometheus exporter ...
+[ wasp 2] 2025-03-07T18:19:25.994013+01:00	INFO	App	Starting background workers ...
+[ wasp 2] 2025-03-07T18:19:25.994114+01:00	INFO	NodeConn	Starting NodeConn ... done
+[ wasp 2] 2025-03-07T18:19:25.994215+01:00	INFO	WebAPI	Starting WebAPI server ...
+[ wasp 2] 2025-03-07T18:19:25.994269+01:00	INFO	Prometheus	Starting Prometheus exporter ... done
+[ wasp 2] 2025-03-07T18:19:25.994327+01:00	INFO	Prometheus	You can now access the Prometheus exporter using: http://0.0.0.0:12114/metrics
+[ wasp 2] ⇨ http server started on [::]:12114
+[ wasp 2] 2025-03-07T18:19:25.994574+01:00	INFO	Cache	Started cache statistics ticker
+[ wasp 1] 2025-03-07T18:19:25.994826+01:00	INFO	App	Starting component: Logger ...
+[ wasp 1] 2025-03-07T18:19:25.994847+01:00	INFO	App	Starting component: Cache ...
+[ wasp 1] 2025-03-07T18:19:25.994896+01:00	INFO	App	Starting component: Database ...
+[ wasp 1] 2025-03-07T18:19:25.994927+01:00	INFO	App	Starting component: Registry ...
+[ wasp 1] 2025-03-07T18:19:25.994947+01:00	INFO	App	Starting component: Peering ...
+[ wasp 1] 2025-03-07T18:19:25.994968+01:00	INFO	App	Starting component: DKG ...
+[ wasp 1] 2025-03-07T18:19:25.995+01:00	INFO	App	Starting component: Processors ...
+[ wasp 1] 2025-03-07T18:19:25.995023+01:00	INFO	App	Starting component: Chains ...
+[ wasp 1] 2025-03-07T18:19:25.995044+01:00	INFO	App	Starting component: Publisher ...
+[ wasp 1] 2025-03-07T18:19:25.995066+01:00	INFO	App	Starting component: WebAPI ...
+[ wasp 1] 2025-03-07T18:19:25.995084+01:00	INFO	WebAPI	Starting WebAPI server ...
+[ wasp 1] 2025-03-07T18:19:25.995106+01:00	INFO	App	Starting component: Prometheus ...
+[ wasp 1] 2025-03-07T18:19:25.995128+01:00	INFO	Prometheus	Starting Prometheus exporter ...
+[ wasp 1] 2025-03-07T18:19:25.995152+01:00	INFO	App	Starting background workers ...
+[ wasp 1] 2025-03-07T18:19:25.995234+01:00	INFO	Cache	Started cache statistics ticker
+2025-03-07T18:19:25.993762+01:00	INFO	App	Starting component: Cache ...
+[ wasp 0] 2025-03-07T18:19:25.993794+01:00	INFO	App	Starting component: Database ...
+[ wasp 0] 2025-03-07T18:19:25.993816+01:00	INFO	App	Starting component: Registry ...
+[ wasp 0] 2025-03-07T18:19:25.993838+01:00	INFO	App	Starting component: Peering ...
+[ wasp 0] 2025-03-07T18:19:25.993862+01:00	INFO	App	Starting component: DKG ...
+[ wasp 0] 2025-03-07T18:19:25.993885+01:00	INFO	App	Starting component: Processors ...
+[ wasp 0] 2025-03-07T18:19:25.993906+01:00	INFO	App	Starting component: Chains ...
+[ wasp 0] 2025-03-07T18:19:25.993928+01:00	INFO	App	Starting component: Publisher ...
+[ wasp 0] 2025-03-07T18:19:25.993953+01:00	INFO	App	Starting component: WebAPI ...
+[ wasp 0] 2025-03-07T18:19:25.99398+01:00	INFO	WebAPI	Starting WebAPI server ...
+[ wasp 0] 2025-03-07T18:19:25.99401+01:00	INFO	App	Starting component: Prometheus ...
+[ wasp 0] 2025-03-07T18:19:25.994031+01:00	INFO	Prometheus	Starting Prometheus exporter ...
+[ wasp 0] 2025-03-07T18:19:25.994053+01:00	INFO	App	Starting background workers ...
+[ wasp 0] 2025-03-07T18:19:25.994204+01:00	INFO	Prometheus	Starting Prometheus exporter ... done
+[ wasp 0] 2025-03-07T18:19:25.994284+01:00	INFO	Prometheus	You can now access the Prometheus exporter using: http://0.0.0.0:12112/metrics
+[ wasp 0] ⇨ http server started on [::]:12112
+[ wasp 0] 2025-03-07T18:19:25.994574+01:00	INFO	Cache	Started cache statistics ticker
+[ wasp 0] 2025-03-07T18:19:25.994615+01:00	INFO	WebAPI	Starting WebAPI server ...
+[ wasp 0] 2025-03-07T18:19:25.994661+01:00	INFO	NodeConn	Starting NodeConn ... done
+[ wasp 1] 2025-03-07T18:19:25.995234+01:00	INFO	NodeConn	Starting NodeConn ... done
+[ wasp 1] 2025-03-07T18:19:25.995281+01:00	INFO	Prometheus	Starting Prometheus exporter ... done
+[ wasp 1] 2025-03-07T18:19:25.99534+01:00	INFO	Prometheus	You can now access the Prometheus exporter using: http://0.0.0.0:12113/metrics
+[ wasp 1] 2025-03-07T18:19:25.995291+01:00	INFO	WebAPI	Starting WebAPI server ...
+[ wasp 1] ⇨ http server started on [::]:12113
+[ wasp 2] 2025-03-07T18:19:27.139365+01:00	INFO	WebAPI	Starting WebAPI server ... done
+[ wasp 2] 2025-03-07T18:19:27.139516+01:00	INFO	WebAPI	You can now access the WebAPI using: http://0.0.0.0:19092
+[ wasp 2] 2025-03-07T18:19:27.140178+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666]
+[ wasp 3] 2025-03-07T18:19:27.141328+01:00	INFO	WebAPI	Starting WebAPI server ... done
+[ wasp 3] 2025-03-07T18:19:27.141402+01:00	INFO	WebAPI	You can now access the WebAPI using: http://0.0.0.0:19093
+[ wasp 3] 2025-03-07T18:19:27.14142+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf]
+[ wasp 1] 2025-03-07T18:19:27.142567+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09]
+[ wasp 1] 2025-03-07T18:19:27.14422+01:00	INFO	WebAPI	Starting WebAPI server ... done
+[ wasp 1] 2025-03-07T18:19:27.144258+01:00	INFO	WebAPI	You can now access the WebAPI using: http://0.0.0.0:19091
+[ wasp 0] 2025-03-07T18:19:27.150074+01:00	INFO	WebAPI	Starting WebAPI server ... done
+[ wasp 0] 2025-03-07T18:19:27.150322+01:00	INFO	WebAPI	You can now access the WebAPI using: http://0.0.0.0:19090
+[ wasp 0] 2025-03-07T18:19:27.151956+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767]
+[ wasp 0] 2025-03-07T18:19:27.615989+01:00 ::1 GET /health 200 error=""[ wasp 3] 2025-03-07T18:19:27.615962+01:00 ::1 GET /health 200 error=""
+
+[ wasp 2] 2025-03-07T18:19:27.616192+01:00 ::1 GET /health 200 error=""
+[ wasp 1] 2025-03-07T18:19:27.61617+01:00 ::1 GET /health 200 error=""
+[cluster] started 4 Wasp nodes in 2.01719225s
+[ wasp 0] 2025-03-07T18:19:27.618597+01:00 127.0.0.1 GET /v1/node/peers/identity 200 error=""
+[ wasp 1] 2025-03-07T18:19:27.619432+01:00 127.0.0.1 GET /v1/node/peers/identity 200 error=""
+[ wasp 2] 2025-03-07T18:19:27.619971+01:00 127.0.0.1 GET /v1/node/peers/identity 200 error=""
+[ wasp 3] 2025-03-07T18:19:27.62041+01:00 127.0.0.1 GET /v1/node/peers/identity 200 error=""
+[ wasp 0] 2025-03-07T18:19:27.620953+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767]
+[ wasp 0] 2025-03-07T18:19:27.621146+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 is not in the network
+[ wasp 0] 2025-03-07T18:19:27.626294+01:00	INFO	Peering	Registering localhost:14001 as libp2p PeerID=12D3KooWNYpL4hSz94UwXyHoLygQAVDeZ6tv3ek7AMS8efh4tr9n with addresses: [/dns/localhost/udp/14001/quic /dns/localhost/tcp/14001]
+[ wasp 0] 2025-03-07T18:19:27.626416+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 0] 2025-03-07T18:19:27.627037+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666]
+[ wasp 0] 2025-03-07T18:19:27.627101+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 is not in the network
+[ wasp 0] 2025-03-07T18:19:27.631892+01:00	INFO	Peering	Registering localhost:14002 as libp2p PeerID=12D3KooWHPoAuSpGjRacMhtV2McymZX3faEXTfsCUVDhHSdQdySD with addresses: [/dns/localhost/udp/14002/quic /dns/localhost/tcp/14002]
+[ wasp 0] 2025-03-07T18:19:27.631959+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 0] 2025-03-07T18:19:27.632536+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666]
+[ wasp 0] 2025-03-07T18:19:27.632599+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf is not in the network
+[ wasp 1] 2025-03-07T18:19:27.635+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 0] 2025-03-07T18:19:27.635741+01:00	INFO	Peering	Registering localhost:14003 as libp2p PeerID=12D3KooWLnoQtniPai4PoL6qxMhwHUr1veeYJUVpBZewVtS15CrS with addresses: [/dns/localhost/udp/14003/quic /dns/localhost/tcp/14003]
+[ wasp 0] 2025-03-07T18:19:27.635797+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 1] 2025-03-07T18:19:27.635295+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 1] 2025-03-07T18:19:27.636271+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767]
+[ wasp 1] 2025-03-07T18:19:27.636326+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 is not in the network
+[ wasp 2] 2025-03-07T18:19:27.638493+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 1] 2025-03-07T18:19:27.640878+01:00	INFO	Peering	Registering localhost:14000 as libp2p PeerID=12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc with addresses: [/dns/localhost/udp/14000/quic /dns/localhost/tcp/14000]
+[ wasp 1] 2025-03-07T18:19:27.640927+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 1] 2025-03-07T18:19:27.641281+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09]
+[ wasp 1] 2025-03-07T18:19:27.641319+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 is not in the network
+[ wasp 1] 2025-03-07T18:19:27.642827+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 is not in the network
+[ wasp 1] 2025-03-07T18:19:27.646092+01:00	INFO	Peering	Registering localhost:14002 as libp2p PeerID=12D3KooWHPoAuSpGjRacMhtV2McymZX3faEXTfsCUVDhHSdQdySD with addresses: [/dns/localhost/udp/14002/quic /dns/localhost/tcp/14002]
+[ wasp 1] 2025-03-07T18:19:27.646135+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 1] 2025-03-07T18:19:27.646537+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf]
+[ wasp 1] 2025-03-07T18:19:27.64658+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf is not in the network
+[ wasp 2] 2025-03-07T18:19:27.64703+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 2] 2025-03-07T18:19:27.647554+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 1] 2025-03-07T18:19:27.647864+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf is not in the network
+[ wasp 1] 2025-03-07T18:19:27.649924+01:00	INFO	Peering	Registering localhost:14003 as libp2p PeerID=12D3KooWLnoQtniPai4PoL6qxMhwHUr1veeYJUVpBZewVtS15CrS with addresses: [/dns/localhost/udp/14003/quic /dns/localhost/tcp/14003]
+[ wasp 1] 2025-03-07T18:19:27.649969+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 2] 2025-03-07T18:19:27.650683+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767]
+[ wasp 2] 2025-03-07T18:19:27.650793+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 is not in the network
+[ wasp 2] 2025-03-07T18:19:27.652562+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWNYpL4hSz94UwXyHoLygQAVDeZ6tv3ek7AMS8efh4tr9n
+[ wasp 3] 2025-03-07T18:19:27.652866+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 2] 2025-03-07T18:19:27.652902+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWNYpL4hSz94UwXyHoLygQAVDeZ6tv3ek7AMS8efh4tr9n
+[ wasp 3] 2025-03-07T18:19:27.653205+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 2] 2025-03-07T18:19:27.65496+01:00	INFO	Peering	Registering localhost:14000 as libp2p PeerID=12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc with addresses: [/dns/localhost/udp/14000/quic /dns/localhost/tcp/14000]
+[ wasp 2] 2025-03-07T18:19:27.655016+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 2] 2025-03-07T18:19:27.655611+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09]
+[ wasp 2] 2025-03-07T18:19:27.655649+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 is not in the network
+[ wasp 2] 2025-03-07T18:19:27.656171+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.656648+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 2] 2025-03-07T18:19:27.657096+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.657056+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc
+[ wasp 2] 2025-03-07T18:19:27.658816+01:00	INFO	Peering	Registering localhost:14001 as libp2p PeerID=12D3KooWNYpL4hSz94UwXyHoLygQAVDeZ6tv3ek7AMS8efh4tr9n with addresses: [/dns/localhost/udp/14001/quic /dns/localhost/tcp/14001]
+[ wasp 2] 2025-03-07T18:19:27.658852+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 2] 2025-03-07T18:19:27.659088+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767]
+[ wasp 2] 2025-03-07T18:19:27.659117+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf is not in the network
+[ wasp 2] 2025-03-07T18:19:27.659497+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf is not in the network
+[ wasp 2] 2025-03-07T18:19:27.660226+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf is not in the network
+[ wasp 3] 2025-03-07T18:19:27.662737+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWNYpL4hSz94UwXyHoLygQAVDeZ6tv3ek7AMS8efh4tr9n
+[ wasp 2] [ wasp 3] 2025-03-07T18:19:27.662937+01:00	WARN	Peering	Dropping incoming message from unknown peer: 12D3KooWNYpL4hSz94UwXyHoLygQAVDeZ6tv3ek7AMS8efh4tr9n
+2025-03-07T18:19:27.663781+01:00	INFO	Peering	Registering localhost:14003 as libp2p PeerID=12D3KooWLnoQtniPai4PoL6qxMhwHUr1veeYJUVpBZewVtS15CrS with addresses: [/dns/localhost/udp/14003/quic /dns/localhost/tcp/14003]
+[ wasp 2] 2025-03-07T18:19:27.663814+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 3] 2025-03-07T18:19:27.664101+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf]
+[ wasp 3] 2025-03-07T18:19:27.664143+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.66885+01:00	INFO	Peering	Registering localhost:14000 as libp2p PeerID=12D3KooWAHgeMwgDe6kHKG5orrKffcL1DRVhg6Vwm5As1ViUxxHc with addresses: [/dns/localhost/udp/14000/quic /dns/localhost/tcp/14000]
+[ wasp 3] 2025-03-07T18:19:27.668902+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 3] 2025-03-07T18:19:27.669121+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09]
+[ wasp 3] 2025-03-07T18:19:27.669144+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.669623+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.670453+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.673781+01:00	INFO	Peering	Registering localhost:14001 as libp2p PeerID=12D3KooWNYpL4hSz94UwXyHoLygQAVDeZ6tv3ek7AMS8efh4tr9n with addresses: [/dns/localhost/udp/14001/quic /dns/localhost/tcp/14001]
+[ wasp 3] 2025-03-07T18:19:27.673813+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+[ wasp 3] 2025-03-07T18:19:27.674044+01:00	DEBUG	Chains.AM	handleReqTrustedNodes: trusted=[0xa309f020c889d0ace5323a059b55ad23cf8817aa5387176ee0ee092d660e5dbf 0x06ff92aa2a486f512420f71d27498c4904b502df2782dcb97ec1e006c93d6767 0xbd2c3792edf917e19afd71918b371083ea6c2ce13153963ee80e4db2fe121f09 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666]
+[ wasp 3] 2025-03-07T18:19:27.67407+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.674427+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.67517+01:00	WARN	Peering	SendMsgByPubKey: PubKey 0x70923ef39deac84c226687a9692aba6ec64808b8349be43a2270faa095010666 is not in the network
+[ wasp 3] 2025-03-07T18:19:27.67681+01:00	INFO	Peering	Registering localhost:14002 as libp2p PeerID=12D3KooWHPoAuSpGjRacMhtV2McymZX3faEXTfsCUVDhHSdQdySD with addresses: [/dns/localhost/udp/14002/quic /dns/localhost/tcp/14002]
+[ wasp 3] 2025-03-07T18:19:27.67685+01:00 127.0.0.1 POST /v1/node/peers/trusted 200 error=""
+    wasp-cli.go:38: Using temporary directory /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823
+    wasp-cli.go:49: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d wallet-provider unsafe_inmemory_testing_seed
+    wasp-cli.go:49: OUTPUT #lines=1
+    wasp-cli.go:49: OUTPUT: 
+    wasp-cli.go:50: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d init
+    wasp-cli.go:50: OUTPUT #lines=1
+    wasp-cli.go:50: OUTPUT: New testing seed saved inside the config file.
+    wasp-cli.go:52: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d set l1.apiAddress https://api.iota-rebased-alphanet.iota.cafe
+    wasp-cli.go:52: OUTPUT #lines=1
+    wasp-cli.go:52: OUTPUT: 
+    wasp-cli.go:53: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d set l1.faucetAddress https://faucet.iota-rebased-alphanet.iota.cafe/gas
+    wasp-cli.go:53: OUTPUT #lines=1
+    wasp-cli.go:53: OUTPUT: 
+    wasp-cli.go:55: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d wasp add 0 http://127.0.0.1:19090
+    wasp-cli.go:55: OUTPUT #lines=1
+    wasp-cli.go:55: OUTPUT: 
+    wasp-cli.go:55: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d wasp add 1 http://127.0.0.1:19091
+    wasp-cli.go:55: OUTPUT #lines=1
+    wasp-cli.go:55: OUTPUT: 
+    wasp-cli.go:55: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d wasp add 2 http://127.0.0.1:19092
+    wasp-cli.go:55: OUTPUT #lines=1
+    wasp-cli.go:55: OUTPUT: 
+    wasp-cli.go:55: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d wasp add 3 http://127.0.0.1:19093
+    wasp-cli.go:55: OUTPUT #lines=1
+    wasp-cli.go:55: OUTPUT: 
+    wasp-cli.go:58: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d request-funds
+    wasp-cli.go:58: OUTPUT #lines=1
+    wasp-cli.go:58: OUTPUT: Request funds for address 0x826e86413f00b4104c15707f28405f954ae0ec9b87fac2b408aab7c47ee5b5ee success
+requestFundstext:  [Request funds for address 0x826e86413f00b4104c15707f28405f954ae0ec9b87fac2b408aab7c47ee5b5ee success]
+    wasp-cli_test.go:120: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d address --address-index=1
+    wasp-cli_test.go:120: OUTPUT #lines=2
+    wasp-cli_test.go:120: OUTPUT: Address index: 1
+    wasp-cli_test.go:120: OUTPUT: Address: 0x5557c9683d51f4e0e1661b80c2da10a3f7164c501863533d5171f625e2c1de88
+    wasp-cli_test.go:122: Running: wasp-cli -c /var/folders/fj/99whzry17dxfk7hyv99md3740000gn/T/wasp-cli-test-254356823/wasp-cli.json -w -d send-funds 0x5557c9683d51f4e0e1661b80c2da10a3f7164c501863533d5171f625e2c1de88 base|1000000
+[cluster] Sending shutdown to wasp node 0
+[ wasp 0] 2025-03-07T18:19:32.90631+01:00	WARN	Shutdown	Received shutdown request - waiting (max 300 seconds) to finish processing ...
+[ wasp 0] 2025-03-07T18:19:32.906437+01:00	INFO	Prometheus	Stopping Prometheus exporter ...
+[ wasp 0] 2025-03-07T18:19:32.906554+01:00	INFO	Prometheus	Stopping Prometheus exporter ... done
+[ wasp 0] 2025-03-07T18:19:32.906594+01:00	INFO	WebAPI	Stopping WebAPI[WS]
+[ wasp 0] 2025-03-07T18:19:32.906619+01:00	INFO	WebAPI	Stopping WebAPI server ...
+[ wasp 0] 2025-03-07T18:19:32.906779+01:00	INFO	WebAPI	Stopping WebAPI server ... done
+[ wasp 0] 2025-03-07T18:19:32.906859+01:00	DEBUG	Chains.Shutdown	context 'chains' marked as done
+[ wasp 0] 2025-03-07T18:19:32.906922+01:00	INFO	NodeConn	Stopping NodeConn ... done
+[ wasp 0] 2025-03-07T18:19:32.906974+01:00	INFO	Database	Syncing databases to disk ...
+[ wasp 0] 2025-03-07T18:19:32.906994+01:00	INFO	Database	Syncing databases to disk ... done
+[ wasp 0] 2025-03-07T18:19:32.907016+01:00	INFO	App	Shutdown complete!
+[cluster] Sending shutdown to wasp node 1
+[ wasp 1] 2025-03-07T18:19:32.909623+01:00	WARN	Shutdown	Received shutdown request - waiting (max 300 seconds) to finish processing ...
+[ wasp 1] 2025-03-07T18:19:32.909682+01:00	INFO	Prometheus	Stopping Prometheus exporter ...
+[ wasp 1] 2025-03-07T18:19:32.909741+01:00	INFO	Prometheus	Stopping Prometheus exporter ... done
+[ wasp 1] 2025-03-07T18:19:32.909762+01:00	INFO	WebAPI	Stopping WebAPI[WS]
+[ wasp 1] 2025-03-07T18:19:32.909776+01:00	INFO	WebAPI	Stopping WebAPI server ...
+[ wasp 1] 2025-03-07T18:19:32.90987+01:00	INFO	WebAPI	Stopping WebAPI server ... done
+[ wasp 1] 2025-03-07T18:19:32.909909+01:00	DEBUG	Chains.Shutdown	context 'chains' marked as done
+[ wasp 1] 2025-03-07T18:19:32.909931+01:00	INFO	NodeConn	Stopping NodeConn ... done
+[ wasp 1] 2025-03-07T18:19:32.909963+01:00	INFO	Database	Syncing databases to disk ...
+[ wasp 1] 2025-03-07T18:19:32.909983+01:00	INFO	Database	Syncing databases to disk ... done
+[ wasp 1] 2025-03-07T18:19:32.910012+01:00	INFO	App	Shutdown complete!
+[cluster] Sending shutdown to wasp node 2
+[ wasp 2] 2025-03-07T18:19:32.912217+01:00	WARN	Shutdown	Received shutdown request - waiting (max 300 seconds) to finish processing ...
+[ wasp 2] 2025-03-07T18:19:32.912272+01:00	INFO	Prometheus	Stopping Prometheus exporter ...
+[ wasp 2] 2025-03-07T18:19:32.912321+01:00	INFO	Prometheus	Stopping Prometheus exporter ... done
+[ wasp 2] 2025-03-07T18:19:32.912354+01:00	INFO	WebAPI	Stopping WebAPI[WS]
+[ wasp 2] 2025-03-07T18:19:32.912363+01:00	INFO	WebAPI	Stopping WebAPI server ...
+[ wasp 2] 2025-03-07T18:19:32.912484+01:00	INFO	WebAPI	Stopping WebAPI server ... done
+[ wasp 2] 2025-03-07T18:19:32.912551+01:00	DEBUG	Chains.Shutdown	context 'chains' marked as done
+[ wasp 2] 2025-03-07T18:19:32.912577+01:00	INFO	NodeConn	Stopping NodeConn ... done
+[ wasp 2] 2025-03-07T18:19:32.912658+01:00	INFO	Database	Syncing databases to disk ...
+[ wasp 2] 2025-03-07T18:19:32.912677+01:00	INFO	Database	Syncing databases to disk ... done
+[ wasp 2] 2025-03-07T18:19:32.9127+01:00	INFO	App	Shutdown complete!
+[cluster] Sending shutdown to wasp node 3
+[ wasp 3] 2025-03-07T18:19:32.914843+01:00	WARN	Shutdown	Received shutdown request - waiting (max 300 seconds) to finish processing ...
+[ wasp 3] 2025-03-07T18:19:32.91489+01:00	INFO	Prometheus	Stopping Prometheus exporter ...
+[ wasp 3] 2025-03-07T18:19:32.914935+01:00	INFO	Prometheus	Stopping Prometheus exporter ... done
+[ wasp 3] 2025-03-07T18:19:32.914964+01:00	INFO	WebAPI	Stopping WebAPI[WS]
+[ wasp 3] 2025-03-07T18:19:32.914978+01:00	INFO	WebAPI	Stopping WebAPI server ...
+[ wasp 3] 2025-03-07T18:19:32.915064+01:00	INFO	WebAPI	Stopping WebAPI server ... done
+[ wasp 3] 2025-03-07T18:19:32.915101+01:00	DEBUG	Chains.Shutdown	context 'chains' marked as done
+[ wasp 3] 2025-03-07T18:19:32.915122+01:00	INFO	NodeConn	Stopping NodeConn ... done
+[ wasp 3] 2025-03-07T18:19:32.915144+01:00	INFO	Database	Syncing databases to disk ...
+[ wasp 3] 2025-03-07T18:19:32.915163+01:00	INFO	Database	Syncing databases to disk ... done
+[ wasp 3] 2025-03-07T18:19:32.915188+01:00	INFO	App	Shutdown complete!
+--- FAIL: TestWaspCLISendFunds (7.63s)
+panic: cmd `wasp-cli send-funds 0x5557c9683d51f4e0e1661b80c2da10a3f7164c501863533d5171f625e2c1de88 base|1000000` failed
+	exit status 1
+	output:
+	
+	Sending 
+		Assets{0x0000000000000000000000000000000000000000000000000000000000000002::iota::IOTA: 1000000} 
+		to: 0x5557c9683d51f4e0e1661b80c2da10a3f7164c501863533d5171f625e2c1de88
+	
+	error: server returned error: Invalid params
+	goroutine 1 [running]:
+	runtime/debug.Stack()
+		/Users/hauyang/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.0.darwin-arm64/src/runtime/debug/stack.go:26 +0x64
+	github.com/iotaledger/wasp/tools/wasp-cli/log.Fatalf({0x105f9ffbb?, 0x25?}, {0x14000543b48?, 0x5?, 0x14000543b58?})
+		/Users/hauyang/Work/isc-private/tools/wasp-cli/log/log.go:82 +0x7c
+	github.com/iotaledger/wasp/tools/wasp-cli/log.Check({0x106c12900, 0x140004f4040}, {0x0, 0x0, 0x0?})
+		/Users/hauyang/Work/isc-private/tools/wasp-cli/log/log.go:166 +0x22c
+	github.com/iotaledger/wasp/tools/wasp-cli/wallet.initSendFundsCmd.func1(0x14000031b08?, {0x1400044cd20, 0x2, 0x6})
+		/Users/hauyang/Work/isc-private/tools/wasp-cli/wallet/send.go:44 +0x27c
+	github.com/spf13/cobra.(*Command).execute(0x14000031b08, {0x1400044ccc0, 0x6, 0x6})
+		/Users/hauyang/go/pkg/mod/github.com/spf13/cobra@v1.9.1/command.go:1019 +0x810
+	github.com/spf13/cobra.(*Command).ExecuteC(0x14000286c08)
+		/Users/hauyang/go/pkg/mod/github.com/spf13/cobra@v1.9.1/command.go:1148 +0x350
+	github.com/spf13/cobra.(*Command).Execute(...)
+		/Users/hauyang/go/pkg/mod/github.com/spf13/cobra@v1.9.1/command.go:1071
+	main.main()
+		/Users/hauyang/Work/isc-private/tools/wasp-cli/main.go:97 +0x24
+	 [recovered]
+	panic: cmd `wasp-cli send-funds 0x5557c9683d51f4e0e1661b80c2da10a3f7164c501863533d5171f625e2c1de88 base|1000000` failed
+	exit status 1
+	output:
+	
+	Sending 
+		Assets{0x0000000000000000000000000000000000000000000000000000000000000002::iota::IOTA: 1000000} 
+		to: 0x5557c9683d51f4e0e1661b80c2da10a3f7164c501863533d5171f625e2c1de88
+	
+	error: server returned error: Invalid params
+	goroutine 1 [running]:
+	runtime/debug.Stack()
+		/Users/hauyang/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.0.darwin-arm64/src/runtime/debug/stack.go:26 +0x64
+	github.com/iotaledger/wasp/tools/wasp-cli/log.Fatalf({0x105f9ffbb?, 0x25?}, {0x14000543b48?, 0x5?, 0x14000543b58?})
+		/Users/hauyang/Work/isc-private/tools/wasp-cli/log/log.go:82 +0x7c
+	github.com/iotaledger/wasp/tools/wasp-cli/log.Check({0x106c12900, 0x140004f4040}, {0x0, 0x0, 0x0?})
+		/Users/hauyang/Work/isc-private/tools/wasp-cli/log/log.go:166 +0x22c
+	github.com/iotaledger/wasp/tools/wasp-cli/wallet.initSendFundsCmd.func1(0x14000031b08?, {0x1400044cd20, 0x2, 0x6})
+		/Users/hauyang/Work/isc-private/tools/wasp-cli/wallet/send.go:44 +0x27c
+	github.com/spf13/cobra.(*Command).execute(0x14000031b08, {0x1400044ccc0, 0x6, 0x6})
+		/Users/hauyang/go/pkg/mod/github.com/spf13/cobra@v1.9.1/command.go:1019 +0x810
+	github.com/spf13/cobra.(*Command).ExecuteC(0x14000286c08)
+		/Users/hauyang/go/pkg/mod/github.com/spf13/cobra@v1.9.1/command.go:1148 +0x350
+	github.com/spf13/cobra.(*Command).Execute(...)
+		/Users/hauyang/go/pkg/mod/github.com/spf13/cobra@v1.9.1/command.go:1071
+	main.main()
+		/Users/hauyang/Work/isc-private/tools/wasp-cli/main.go:97 +0x24
+	
+
+goroutine 33 [running]:
+testing.tRunner.func1.2({0x1037c5420, 0x14000312460})
+	/Users/hauyang/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.0.darwin-arm64/src/testing/testing.go:1734 +0x1ac
+testing.tRunner.func1()
+	/Users/hauyang/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.0.darwin-arm64/src/testing/testing.go:1737 +0x334
+panic({0x1037c5420?, 0x14000312460?})
+	/Users/hauyang/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.0.darwin-arm64/src/runtime/panic.go:787 +0x124
+github.com/iotaledger/wasp/tools/cluster/tests.(*WaspCLITest).MustRun(0x140005997a0, {0x14000557f08, 0x3, 0x3})
+	/Users/hauyang/Work/isc-private/tools/cluster/tests/wasp-cli.go:117 +0x64
+github.com/iotaledger/wasp/tools/cluster/tests.TestWaspCLISendFunds(0x14000369dc0)
+	/Users/hauyang/Work/isc-private/tools/cluster/tests/wasp-cli_test.go:122 +0xc8
+testing.tRunner(0x14000369dc0, 0x1039c5fd8)
+	/Users/hauyang/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.0.darwin-arm64/src/testing/testing.go:1792 +0xe4
+created by testing.(*T).Run in goroutine 1
+	/Users/hauyang/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.0.darwin-arm64/src/testing/testing.go:1851 +0x374
+FAIL	github.com/iotaledger/wasp/tools/cluster/tests	8.139s
+FAIL

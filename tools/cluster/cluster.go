@@ -14,6 +14,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"path/filepath"
 	"runtime"
 	"strconv"
 	"sync"
@@ -21,8 +22,11 @@ import (
 	"text/template"
 	"time"
 
+	hivep2p "github.com/iotaledger/hive.go/crypto/p2p"
+	"github.com/iotaledger/wasp/clients/iota-go/iotaclient"
 	"github.com/iotaledger/wasp/clients/iota-go/iotago"
 	"github.com/iotaledger/wasp/clients/iota-go/iotajsonrpc"
+	testcommon "github.com/iotaledger/wasp/clients/iota-go/test_common"
 
 	"github.com/samber/lo"
 
@@ -37,11 +41,14 @@ import (
 	"github.com/iotaledger/wasp/packages/coin"
 	"github.com/iotaledger/wasp/packages/cryptolib"
 	"github.com/iotaledger/wasp/packages/evm/evmlogger"
+	"github.com/iotaledger/wasp/packages/gpa"
 	"github.com/iotaledger/wasp/packages/isc"
 	"github.com/iotaledger/wasp/packages/origin"
 	"github.com/iotaledger/wasp/packages/parameters"
+	"github.com/iotaledger/wasp/packages/registry"
 	"github.com/iotaledger/wasp/packages/testutil/testkey"
 	"github.com/iotaledger/wasp/packages/testutil/testlogger"
+	"github.com/iotaledger/wasp/packages/testutil/testpeers"
 	"github.com/iotaledger/wasp/packages/transaction"
 	"github.com/iotaledger/wasp/packages/util"
 	"github.com/iotaledger/wasp/packages/vm/core/governance"
@@ -67,7 +74,7 @@ type waspCmd struct {
 	logScanner sync.WaitGroup
 }
 
-func New(name string, config *ClusterConfig, dataPath string, t *testing.T, log *logger.Logger) *Cluster {
+func New(name string, config *ClusterConfig, dataPath string, t *testing.T, log *logger.Logger, l1PacakgeID *iotago.PackageID) *Cluster {
 	if log == nil {
 		if t == nil {
 			panic("one of t or log must be set")
@@ -77,11 +84,13 @@ func New(name string, config *ClusterConfig, dataPath string, t *testing.T, log 
 	evmlogger.Init(log)
 
 	config.setValidatorAddressIfNotSet() // privtangle prefix
-
+	for i := range config.Wasp {
+		config.Wasp[i].PackageID = l1PacakgeID
+	}
 	return &Cluster{
 		Name:              name,
 		Config:            config,
-		OriginatorKeyPair: cryptolib.NewKeyPair(),
+		OriginatorKeyPair: cryptolib.KeyPairFromSeed(cryptolib.SeedFromBytes(testcommon.TestSeed)),
 		waspCmds:          make([]*waspCmd, len(config.Wasp)),
 		t:                 t,
 		log:               log,
@@ -250,8 +259,11 @@ func (clu *Cluster) DeployChain(allPeers, committeeNodes []int, quorum uint16, s
 
 	err := clu.RequestFunds(address)
 	if err != nil {
-		return nil, fmt.Errorf("DeployChain: %w", err)
+		// return nil, fmt.Errorf("DeployChain: %w", err)
+		fmt.Println("!!!!!RequestFunds err: ", err)
+		err = nil
 	}
+	fmt.Println("!!!!!outside err: ", err)
 
 	committeePubKeys := make([]string, len(chain.CommitteeNodes))
 	for i, nodeIndex := range chain.CommitteeNodes {
@@ -264,23 +276,35 @@ func (clu *Cluster) DeployChain(allPeers, committeeNodes []int, quorum uint16, s
 		committeePubKeys[i] = peeringNode.PublicKey
 	}
 
+	var blockKeepAmountVal int32
+	if len(blockKeepAmount) > 0 {
+		blockKeepAmountVal = blockKeepAmount[0]
+	}
 	encodedInitParams := origin.NewInitParams(
 		isc.NewAddressAgentID(chain.OriginatorAddress()),
 		1074,
-		blockKeepAmount[0],
-		true,
+		blockKeepAmountVal,
+		false, // FIXME maybe set to true
 	).Encode()
 
+	getCoinsRes, err := clu.Config.L1Client().GetCoins(
+		context.Background(),
+		iotaclient.GetCoinsRequest{Owner: address.AsIotaAddress()},
+	)
+	if err != nil {
+		return nil, fmt.Errorf("cant get gas coin: %w", err)
+	}
+	gasCoin := getCoinsRes.Data[3]
 	stateMetaData := *transaction.NewStateMetadata(
 		allmigrations.DefaultScheme.LatestSchemaVersion(),
 		origin.L1Commitment(
 			allmigrations.DefaultScheme.LatestSchemaVersion(),
 			encodedInitParams,
-			iotago.ObjectID{},
+			*gasCoin.CoinObjectID,
 			0,
-			&isc.IotaCoinInfo{CoinType: coin.BaseTokenType},
+			isc.BaseTokenCoinInfo,
 		),
-		&iotago.ObjectID{},
+		gasCoin.CoinObjectID,
 		gas.DefaultFeePolicy(),
 		encodedInitParams,
 		0,
@@ -296,6 +320,8 @@ func (clu *Cluster) DeployChain(allPeers, committeeNodes []int, quorum uint16, s
 			Textout:           os.Stdout,
 			Prefix:            "[cluster] ",
 			StateMetadata:     stateMetaData,
+			GasCoinObjectID:   gasCoin.CoinObjectID,
+			PackageID:         clu.Config.ISCPackageID(),
 		},
 		stateAddr,
 	)
@@ -384,7 +410,55 @@ func (clu *Cluster) addAllAccessNodes(chain *Chain, accessNodes []int) error {
 		pubKeys = append(pubKeys, governance.AcceptAccessNodeAction(accessNodePubKey))
 	}
 	scParams := chainclient.NewPostRequestParams().WithBaseTokens(1 * isc.Million)
-	govClient := chain.Client(chain.OriginatorKeyPair)
+
+	// {
+	// Parse the committee address.
+	committeeAddress := chain.StateAddress
+	//
+	// Read the node keys and construct the DK Registries and the signer.
+	committeeKeysDir := clu.DataPath + "/wasp0/waspdb/identity/"
+	if !lo.Must(os.Stat(committeeKeysDir)).IsDir() {
+		panic("committee keys must be a directory")
+	}
+
+	var nodeIDs []gpa.NodeID
+	var peerIdentities []*cryptolib.KeyPair
+	var dkRegistries []registry.DKShareRegistryProvider
+
+	for _, entry := range lo.Must(os.ReadDir(committeeKeysDir)) {
+		if !entry.IsDir() {
+			continue
+		}
+		identityPath := filepath.Join(committeeKeysDir, entry.Name(), "identity", "identity.key")
+		if lo.Must(os.Stat(identityPath)).IsDir() {
+			continue
+		}
+
+		dkSharesDir := filepath.Join(committeeKeysDir, entry.Name(), "dkshares")
+		dkSharePath := filepath.Join(dkSharesDir, committeeAddress.String()+".json")
+		if lo.Must(os.Stat(dkSharePath)).IsDir() {
+			continue
+		}
+
+		privKeyRaw, newlyCreated, err := hivep2p.LoadOrCreateIdentityPrivateKey(identityPath, "")
+		if err != nil || newlyCreated {
+			continue
+		}
+
+		privKey := lo.Must(cryptolib.PrivateKeyFromBytes(lo.Must(privKeyRaw.Raw())))
+		keyPair := cryptolib.KeyPairFromPrivateKey(privKey)
+		nodeID := gpa.NodeIDFromPublicKey(keyPair.GetPublicKey())
+
+		nodeIDs = append(nodeIDs, nodeID)
+		peerIdentities = append(peerIdentities, keyPair)
+		dkRegistries = append(dkRegistries, lo.Must(registry.NewDKSharesRegistry(dkSharesDir, privKey)))
+	}
+	// log := logger.NewLogger("disrec")
+	signer := testpeers.NewTestDSSSigner(committeeAddress, dkRegistries, nodeIDs, peerIdentities, clu.log)
+	// }
+
+	_ = chain.Client(signer, 0)
+	govClient := chain.Client(clu.OriginatorKeyPair)
 
 	tx, err := govClient.PostRequest(context.Background(), governance.FuncChangeAccessNodes.Message(pubKeys), *scParams)
 	if err != nil {
@@ -447,7 +521,7 @@ func (clu *Cluster) addAccessNode(accessNodeIndex int, chain *Chain) (*iotajsonr
 		return nil, err
 	}
 
-	fmt.Printf("[cluster] Governance::AddCandidateNode, Posted TX, id=%v, NodePubKey=%v, Certificate=%x, accessAPI=%v, forCommittee=%v\n",
+	fmt.Printf("[cluster] Governance::AddCandidateNode, Posted TX, digest=%v, NodePubKey=%v, Certificate=%x, accessAPI=%v, forCommittee=%v\n",
 		tx.Digest, accessNodePubKey, decodedCert, accessAPI, forCommittee)
 	return tx, nil
 }

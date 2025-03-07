@@ -7,7 +7,6 @@ package l1starter
 
 import (
 	"context"
-	"crypto/ed25519"
 	"fmt"
 	"net/url"
 	"sync/atomic"
@@ -18,7 +17,7 @@ import (
 	"github.com/iotaledger/wasp/clients"
 	"github.com/iotaledger/wasp/clients/iota-go/iotago"
 	"github.com/iotaledger/wasp/clients/iota-go/iotasigner"
-	"github.com/iotaledger/wasp/packages/cryptolib"
+	testcommon "github.com/iotaledger/wasp/clients/iota-go/test_common"
 )
 
 var (
@@ -53,8 +52,9 @@ type IotaNodeEndpoint interface {
 }
 
 func init() {
-	var seed [ed25519.SeedSize]byte = cryptolib.NewSeed()
-	ISCPackageOwner = iotasigner.NewSigner(seed[:], iotasigner.KeySchemeFlagDefault)
+	// var seed [ed25519.SeedSize]byte = cryptolib.NewSeed()
+	// ISCPackageOwner = iotasigner.NewSigner(seed[:], iotasigner.KeySchemeFlagDefault)
+	ISCPackageOwner = iotasigner.NewSigner(testcommon.TestSeed, iotasigner.KeySchemeFlagDefault)
 }
 
 func Instance() IotaNodeEndpoint {

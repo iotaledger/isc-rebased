@@ -65,7 +65,6 @@ func (c *Client) StartNewChain(
 	argInitCoin = ptb.LastCommandResultArg()
 
 	ptb = PTBStartNewChain(ptb, req.PackageID, req.StateMetadata, argInitCoin, req.ChainOwnerAddress)
-
 	txnResponse, err := c.SignAndExecutePTB(
 		ctx,
 		req.Signer,

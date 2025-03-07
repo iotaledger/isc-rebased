@@ -3,11 +3,13 @@ package cluster
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"path"
+	"strings"
+
 	"github.com/iotaledger/wasp/clients"
 	"github.com/iotaledger/wasp/clients/iota-go/iotago"
 	"github.com/iotaledger/wasp/packages/testutil/l1starter"
-	"os"
-	"path"
 
 	"github.com/iotaledger/wasp/packages/cryptolib"
 	"github.com/iotaledger/wasp/tools/cluster/templates"
@@ -63,6 +65,10 @@ func NewConfig(waspConfig WaspConfig, l1Config l1starter.IotaNodeEndpoint, modif
 		if len(modifyConfig) > 0 && modifyConfig[0] != nil {
 			nodesConfigs[i] = modifyConfig[0](i, nodesConfigs[i])
 		}
+
+		nodesConfigs[i].L1HttpHost = l1Config.APIURL()
+		hostSlice := strings.Split(l1Config.APIURL(), "://")
+		nodesConfigs[i].L1WsHost = "wss://" + hostSlice[1]
 	}
 
 	return &ClusterConfig{

@@ -100,8 +100,10 @@ func (c *Client) postSingleRequest(
 	params PostRequestParams,
 ) (*iotajsonrpc.IotaTransactionBlockResponse, error) {
 	assets := iscmove.NewAssets(0)
-	for coinType, coinbal := range params.Transfer.Coins {
-		assets.AddCoin(coinType.AsRPCCoinType(), iotajsonrpc.CoinValue(coinbal.Uint64()))
+	if params.Transfer != nil {
+		for coinType, coinbal := range params.Transfer.Coins {
+			assets.AddCoin(coinType.AsRPCCoinType(), iotajsonrpc.CoinValue(coinbal.Uint64()))
+		}
 	}
 	msg := &iscmove.Message{
 		Contract: uint32(iscmsg.Target.Contract),
@@ -109,8 +111,10 @@ func (c *Client) postSingleRequest(
 		Args:     iscmsg.Params,
 	}
 	allowances := iscmove.NewAssets(0)
-	for coinType, coinBalance := range params.Allowance.Coins {
-		allowances.AddCoin(coinType.AsRPCCoinType(), iotajsonrpc.CoinValue(coinBalance.Uint64()))
+	if params.Allowance != nil {
+		for coinType, coinBalance := range params.Allowance.Coins {
+			allowances.AddCoin(coinType.AsRPCCoinType(), iotajsonrpc.CoinValue(coinBalance.Uint64()))
+		}
 	}
 	return c.L1Client.L2().CreateAndSendRequestWithAssets(
 		ctx,
@@ -185,7 +189,8 @@ func (c *Client) PostOffLedgerRequest(
 
 func (c *Client) DepositFunds(n coin.Value) (*iotajsonrpc.IotaTransactionBlockResponse, error) {
 	return c.PostRequest(context.Background(), accounts.FuncDeposit.Message(), PostRequestParams{
-		Transfer: isc.NewAssets(n),
+		Transfer:  isc.NewAssets(n),
+		Allowance: isc.NewAssets(n),
 	})
 }
 
